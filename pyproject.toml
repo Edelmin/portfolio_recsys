@@ -1,0 +1,16 @@
+[project]
+name = "portfolio_recsys_comparison"
+version = "0.0.0"
+description = "Proyecto de comparación de sistemas de recomendación para carteras de inversión"
+authors = [{name = "Edelmín Rodríguez Castro"}]
+dependencies = []
+
+[tool.kedro]
+package_name = "portfolio_recsys"
+project_name = "Portfolio Recomendation System"
+kedro_init_version = "1.2.0"
+tools = ""
+source_dir = "src"
+
+[tool.kedro_telemetry]
+project_id = "823c3edee6114e829521d53eb9655646"

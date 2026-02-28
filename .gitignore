@@ -465,4 +465,5 @@ junit/
 
 
 # Data folders
+data/
 data/*
