@@ -1,0 +1,24 @@
+name: automerge release-please PR
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, ready_for_review]
+    branches: [main]
+
+permissions:
+  pull-requests: write
+  contents: write
+
+jobs:
+  enable-automerge:
+    # Solo para PRs creadas por release-please
+    if: >
+      github.event.pull_request.user.login == 'release-please[bot]' ||
+      startsWith(github.event.pull_request.head.ref, 'release-please')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Enable auto-merge (squash)
+        uses: peter-evans/enable-pull-request-automerge@v3
+        with:
+          pull-request-number: ${{ github.event.pull_request.number }}
+          merge-method: squash
