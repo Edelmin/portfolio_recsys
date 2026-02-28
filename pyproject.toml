@@ -1,6 +1,6 @@
 [project]
 name = "portfolio_recsys_comparison"
-version = "0.1.0"
+version = "0.2.0"
 description = "Proyecto de comparación de sistemas de recomendación para carteras de inversión"
 authors = [{name = "Edelmín Rodríguez Castro"}]
 dependencies = []
