@@ -475,3 +475,8 @@ logs/
 # kedro viz
 .viz
 .telemetry
+
+# Local Git rewrite backups
+backup-working-tree.patch
+backup-git-log.txt
+backup-tags.txt
