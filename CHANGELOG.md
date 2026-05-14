@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.0](https://github.com/Edelmin/portfolio_recsys_comparison/compare/v0.1.0...v0.2.0) (2026-05-14)
+
+
+### Features
+
+* bootstrap project and automate change log documentation ([86e7ff7](https://github.com/Edelmin/portfolio_recsys_comparison/commit/86e7ff72ae3aadc0acdc4282172a1a177be4bb4b))
+
 ## 0.1.0 (2026-05-14)
 
 
