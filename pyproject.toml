@@ -1,0 +1,51 @@
+[project]
+name = "portfolio_recsys_comparison"
+version = "0.2.0"
+description = "Proyecto de comparación de sistemas de recomendación para carteras de inversión"
+authors = [{name = "Edelmín Rodríguez Castro"}]
+requires-python = "==3.12.*"
+
+
+dependencies = [
+    "yfinance==0.2.65",
+    "pandas==2.2.3",
+    "geopandas==1.1.1",
+    "python-dotenv==1.1.1",
+    "bs4==0.0.2",
+    "requests==2.32.4",
+    "torch==2.7.1",
+    "torchvision==0.22.1",
+    "torchaudio==2.7.1",
+    "torch-geometric==2.6.1",
+    "scikit-learn==1.7.1",
+    "openpyxl==3.1.5",
+    "cvxpy==1.7.1",
+    "kedro==1.2.0",
+    "kedro-datasets==9.2.0",
+    "kedro-viz==12.3.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "ipykernel",
+    "pytest",
+    "ruff",]
+
+
+
+
+
+
+
+[tool.kedro]
+package_name = "portfolio_recsys"
+project_name = "Portfolio Recomendation System"
+kedro_init_version = "1.2.0"
+tools = ""
+source_dir = "src"
+
+[tool.uv]
+package = true
+
+[project.scripts]
+prc-kernel = "portfolio_recsys.tools.setup_jupyter:main"

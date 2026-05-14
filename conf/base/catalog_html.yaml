@@ -1,0 +1,154 @@
+HTML_LargeCaps_BienesRaices:
+  type: text.TextDataset
+  filepath: "data/01_raw/01.1 - HtmlSectorFiles/LargeCaps_BienesRaices.txt"
+  fs_args:
+    open_args_load:
+        encoding: "utf-8"
+
+HTML_LargeCaps_ConsumoDiscrecional:
+  type: text.TextDataset
+  filepath: "data/01_raw/01.1 - HtmlSectorFiles/LargeCaps_ConsumoDiscrecional.txt"
+  fs_args:
+    open_args_load:
+        encoding: "utf-8"
+
+HTML_LargeCaps_Energia:
+  type: text.TextDataset
+  filepath: "data/01_raw/01.1 - HtmlSectorFiles/LargeCaps_Energia.txt"
+  fs_args:
+    open_args_load:
+        encoding: "utf-8"
+
+HTML_LargeCaps_Financiero:
+  type: text.TextDataset
+  filepath: "data/01_raw/01.1 - HtmlSectorFiles/LargeCaps_Financiero.txt"
+  fs_args:
+    open_args_load:
+        encoding: "utf-8"
+
+HTML_LargeCaps_Industria:
+  type: text.TextDataset
+  filepath: "data/01_raw/01.1 - HtmlSectorFiles/LargeCaps_Industria.txt"
+  fs_args:
+    open_args_load:
+        encoding: "utf-8"
+
+HTML_LargeCaps_MateriasPrimas:
+  type: text.TextDataset
+  filepath: "data/01_raw/01.1 - HtmlSectorFiles/LargeCaps_MateriasPrimas.txt"
+  fs_args:
+    open_args_load:
+        encoding: "utf-8"
+
+HTML_LargeCaps_ProductosDePrimeraNecesidad:
+  type: text.TextDataset
+  filepath: "data/01_raw/01.1 - HtmlSectorFiles/LargeCaps_ProductosDePrimeraNecesidad.txt"
+  fs_args:
+    open_args_load:
+        encoding: "utf-8"
+
+HTML_LargeCaps_Salud:
+  type: text.TextDataset
+  filepath: "data/01_raw/01.1 - HtmlSectorFiles/LargeCaps_Salud.txt"
+  fs_args:
+    open_args_load:
+        encoding: "utf-8"
+
+HTML_LargeCaps_Servicios:
+  type: text.TextDataset
+  filepath: "data/01_raw/01.1 - HtmlSectorFiles/LargeCaps_Servicios.txt"
+  fs_args:
+    open_args_load:
+        encoding: "utf-8"
+
+HTML_LargeCaps_ServiciosDeComunicacion:
+  type: text.TextDataset
+  filepath: "data/01_raw/01.1 - HtmlSectorFiles/LargeCaps_ServiciosDeComunicacion.txt"
+  fs_args:
+    open_args_load:
+        encoding: "utf-8"
+
+HTML_LargeCaps_TecnologiasDeLaInformacion:
+  type: text.TextDataset
+  filepath: "data/01_raw/01.1 - HtmlSectorFiles/LargeCaps_TecnologiasDeLaInformacion.txt"
+  fs_args:
+    open_args_load:
+        encoding: "utf-8"
+
+HTML_SmallCaps_BienesRaices:
+  type: text.TextDataset
+  filepath: "data/01_raw/01.1 - HtmlSectorFiles/SmallCaps_BienesRaices.txt"
+  fs_args:
+    open_args_load:
+        encoding: "utf-8"
+
+HTML_SmallCaps_ConsumoDiscrecional:
+  type: text.TextDataset
+  filepath: "data/01_raw/01.1 - HtmlSectorFiles/SmallCaps_ConsumoDiscrecional.txt"
+  fs_args:
+    open_args_load:
+        encoding: "utf-8"
+
+HTML_SmallCaps_Energia:
+  type: text.TextDataset
+  filepath: "data/01_raw/01.1 - HtmlSectorFiles/SmallCaps_Energia.txt"
+  fs_args:
+    open_args_load:
+        encoding: "utf-8"
+
+HTML_SmallCaps_Financiero:
+  type: text.TextDataset
+  filepath: "data/01_raw/01.1 - HtmlSectorFiles/SmallCaps_Financiero.txt"
+  fs_args:
+    open_args_load:
+        encoding: "utf-8"
+
+HTML_SmallCaps_Industria:
+  type: text.TextDataset
+  filepath: "data/01_raw/01.1 - HtmlSectorFiles/SmallCaps_Industria.txt"
+  fs_args:
+    open_args_load:
+        encoding: "utf-8"
+
+HTML_SmallCaps_MateriasPrimas:
+  type: text.TextDataset
+  filepath: "data/01_raw/01.1 - HtmlSectorFiles/SmallCaps_MateriasPrimas.txt"
+  fs_args:
+    open_args_load:
+        encoding: "utf-8"
+
+HTML_SmallCaps_ProductosDePrimeraNecesidad:
+  type: text.TextDataset
+  filepath: "data/01_raw/01.1 - HtmlSectorFiles/SmallCaps_ProductosDePrimeraNecesidad.txt"
+  fs_args:
+    open_args_load:
+        encoding: "utf-8"
+
+HTML_SmallCaps_Salud:
+  type: text.TextDataset
+  filepath: "data/01_raw/01.1 - HtmlSectorFiles/SmallCaps_Salud.txt"
+  fs_args:
+    open_args_load:
+        encoding: "utf-8"
+
+HTML_SmallCaps_Servicios:
+  type: text.TextDataset
+  filepath: "data/01_raw/01.1 - HtmlSectorFiles/SmallCaps_Servicios.txt"
+  fs_args:
+    open_args_load:
+        encoding: "utf-8"
+
+HTML_SmallCaps_ServiciosDeComunicacion:
+  type: text.TextDataset
+  filepath: "data/01_raw/01.1 - HtmlSectorFiles/SmallCaps_ServiciosDeComunicacion.txt"
+  fs_args:
+    open_args_load:
+        encoding: "utf-8"
+
+HTML_SmallCaps_TecnologiasDeLaInformacion:
+  type: text.TextDataset
+  filepath: "data/01_raw/01.1 - HtmlSectorFiles/SmallCaps_TecnologiasDeLaInformacion.txt"
+  fs_args:
+    open_args_load:
+        encoding: "utf-8"
+

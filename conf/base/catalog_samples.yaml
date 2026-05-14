@@ -1,0 +1,418 @@
+CSV_LargeCaps_RealState_Sample:
+  type: pandas.CSVDataset
+  filepath: "data/02_intermediate/02_2. StratifiedSampleSelection/LargeCaps_RealState_Sample.csv"
+  
+  load_args:
+    sep: ","
+    na_values: ["#NA", NA]
+  save_args:
+    index: False
+    date_format: "%Y-%m-%d %H:%M"
+    decimal: .
+
+  fs_args:
+    open_args_save:
+      mode: "w"
+      encoding: "utf-8"
+      newline: ""
+
+
+CSV_LargeCaps_ConsumerDiscretionary_Sample:
+  type: pandas.CSVDataset
+  filepath: "data/02_intermediate/02_2. StratifiedSampleSelection/LargeCaps_ConsumerDiscretionary_Sample.csv"
+  
+  load_args:
+    sep: ","
+    na_values: ["#NA", NA]
+  save_args:
+    index: False
+    date_format: "%Y-%m-%d %H:%M"
+    decimal: .
+
+  fs_args:
+    open_args_save:
+      mode: "w"
+      encoding: "utf-8"
+      newline: ""
+
+
+CSV_Energy_Sample:
+  type: pandas.CSVDataset
+  filepath: "data/02_intermediate/02_2. StratifiedSampleSelection/LargeCaps_Energy_Sample.csv"
+  
+  load_args:
+    sep: ","
+    na_values: ["#NA", NA]
+  save_args:
+    index: False
+    date_format: "%Y-%m-%d %H:%M"
+    decimal: .
+
+  fs_args:
+    open_args_save:
+      mode: "w"
+      encoding: "utf-8"
+      newline: ""
+
+
+CSV_LargeCaps_Financials_Sample:
+  type: pandas.CSVDataset
+  filepath: "data/02_intermediate/02_2. StratifiedSampleSelection/LargeCaps_Financials_Sample.csv"
+  
+  load_args:
+    sep: ","
+    na_values: ["#NA", NA]
+  save_args:
+    index: False
+    date_format: "%Y-%m-%d %H:%M"
+    decimal: .
+
+  fs_args:
+    open_args_save:
+      mode: "w"
+      encoding: "utf-8"
+      newline: ""
+
+
+CSV_LargeCaps_Industry_Sample:
+  type: pandas.CSVDataset
+  filepath: "data/02_intermediate/02_2. StratifiedSampleSelection/LargeCaps_Industry_Sample.csv"
+  
+  load_args:
+    sep: ","
+    na_values: ["#NA", NA]
+  save_args:
+    index: False
+    date_format: "%Y-%m-%d %H:%M"
+    decimal: .
+
+  fs_args:
+    open_args_save:
+      mode: "w"
+      encoding: "utf-8"
+      newline: ""
+
+
+CSV_LargeCaps_Materials_Sample:
+  type: pandas.CSVDataset
+  filepath: "data/02_intermediate/02_2. StratifiedSampleSelection/LargeCaps_Materials_Sample.csv"
+  
+  load_args:
+    sep: ","
+    na_values: ["#NA", NA]
+  save_args:
+    index: False
+    date_format: "%Y-%m-%d %H:%M"
+    decimal: .
+
+  fs_args:
+    open_args_save:
+      mode: "w"
+      encoding: "utf-8"
+      newline: ""
+
+
+CSV_LargeCaps_ConsumerStaple_Sample:
+  type: pandas.CSVDataset
+  filepath: "data/02_intermediate/02_2. StratifiedSampleSelection/LargeCaps_ConsumerStaple_Sample.csv"
+  
+  load_args:
+    sep: ","
+    na_values: ["#NA", NA]
+  save_args:
+    index: False
+    date_format: "%Y-%m-%d %H:%M"
+    decimal: .
+
+  fs_args:
+    open_args_save:
+      mode: "w"
+      encoding: "utf-8"
+      newline: ""
+
+
+CSV_LargeCaps_Healthcare_Sample:
+  type: pandas.CSVDataset
+  filepath: "data/02_intermediate/02_2. StratifiedSampleSelection/LargeCaps_Healthcare_Sample.csv"
+  
+  load_args:
+    sep: ","
+    na_values: ["#NA", NA]
+  save_args:
+    index: False
+    date_format: "%Y-%m-%d %H:%M"
+    decimal: .
+
+  fs_args:
+    open_args_save:
+      mode: "w"
+      encoding: "utf-8"
+      newline: ""
+
+
+CSV_LargeCaps_Utilities_Sample:
+  type: pandas.CSVDataset
+  filepath: "data/02_intermediate/02_2. StratifiedSampleSelection/LargeCaps_Utilities_Sample.csv"
+  
+  load_args:
+    sep: ","
+    na_values: ["#NA", NA]
+  save_args:
+    index: False
+    date_format: "%Y-%m-%d %H:%M"
+    decimal: .
+
+  fs_args:
+    open_args_save:
+      mode: "w"
+      encoding: "utf-8"
+      newline: ""
+
+
+CSV_LargeCaps_ComunicationServices_Sample:
+  type: pandas.CSVDataset
+  filepath: "data/02_intermediate/02_2. StratifiedSampleSelection/LargeCaps_ComunicationServices_Sample.csv"
+  
+  load_args:
+    sep: ","
+    na_values: ["#NA", NA]
+  save_args:
+    index: False
+    date_format: "%Y-%m-%d %H:%M"
+    decimal: .
+
+  fs_args:
+    open_args_save:
+      mode: "w"
+      encoding: "utf-8"
+      newline: ""
+
+
+CSV_LargeCaps_InformationTechnology_Sample:
+  type: pandas.CSVDataset
+  filepath: "data/02_intermediate/02_2. StratifiedSampleSelection/LargeCaps_InformationTechnology_Sample.csv"
+  
+  load_args:
+    sep: ","
+    na_values: ["#NA", NA]
+  save_args:
+    index: False
+    date_format: "%Y-%m-%d %H:%M"
+    decimal: .
+
+  fs_args:
+    open_args_save:
+      mode: "w"
+      encoding: "utf-8"
+      newline: ""
+
+
+CSV_SmallCaps_RealState_Sample:
+  type: pandas.CSVDataset
+  filepath: "data/02_intermediate/02_2. StratifiedSampleSelection/SmallCaps_RealState_Sample.csv"
+  
+  load_args:
+    sep: ","
+    na_values: ["#NA", NA]
+  save_args:
+    index: False
+    date_format: "%Y-%m-%d %H:%M"
+    decimal: .
+
+  fs_args:
+    open_args_save:
+      mode: "w"
+      encoding: "utf-8"
+      newline: ""
+
+
+CSV_SmallCaps_ConsumerDiscretionary_Sample:
+  type: pandas.CSVDataset
+  filepath: "data/02_intermediate/02_2. StratifiedSampleSelection/SmallCaps_ConsumerDiscretionary_Sample.csv"
+  
+  load_args:
+    sep: ","
+    na_values: ["#NA", NA]
+  save_args:
+    index: False
+    date_format: "%Y-%m-%d %H:%M"
+    decimal: .
+
+  fs_args:
+    open_args_save:
+      mode: "w"
+      encoding: "utf-8"
+      newline: ""
+
+
+CSV_SmallCaps_Energy_Sample:
+  type: pandas.CSVDataset
+  filepath: "data/02_intermediate/02_2. StratifiedSampleSelection/SmallCaps_Energy_Sample.csv"
+  
+  load_args:
+    sep: ","
+    na_values: ["#NA", NA]
+  save_args:
+    index: False
+    date_format: "%Y-%m-%d %H:%M"
+    decimal: .
+
+  fs_args:
+    open_args_save:
+      mode: "w"
+      encoding: "utf-8"
+      newline: ""
+
+
+CSV_SmallCaps_Financials_Sample:
+  type: pandas.CSVDataset
+  filepath: "data/02_intermediate/02_2. StratifiedSampleSelection/SmallCaps_Financials_Sample.csv"
+  
+  load_args:
+    sep: ","
+    na_values: ["#NA", NA]
+  save_args:
+    index: False
+    date_format: "%Y-%m-%d %H:%M"
+    decimal: .
+
+  fs_args:
+    open_args_save:
+      mode: "w"
+      encoding: "utf-8"
+      newline: ""
+
+
+CSV_SmallCaps_Industry_Sample:
+  type: pandas.CSVDataset
+  filepath: "data/02_intermediate/02_2. StratifiedSampleSelection/SmallCaps_Industry_Sample.csv"
+  
+  load_args:
+    sep: ","
+    na_values: ["#NA", NA]
+  save_args:
+    index: False
+    date_format: "%Y-%m-%d %H:%M"
+    decimal: .
+
+  fs_args:
+    open_args_save:
+      mode: "w"
+      encoding: "utf-8"
+      newline: ""
+
+
+CSV_SmallCaps_Materials_Sample:
+  type: pandas.CSVDataset
+  filepath: "data/02_intermediate/02_2. StratifiedSampleSelection/SmallCaps_Materials_Sample.csv"
+  
+  load_args:
+    sep: ","
+    na_values: ["#NA", NA]
+  save_args:
+    index: False
+    date_format: "%Y-%m-%d %H:%M"
+    decimal: .
+
+  fs_args:
+    open_args_save:
+      mode: "w"
+      encoding: "utf-8"
+      newline: ""
+
+
+CSV_SmallCaps_ConsumerStaple_Sample:
+  type: pandas.CSVDataset
+  filepath: "data/02_intermediate/02_2. StratifiedSampleSelection/SmallCaps_ConsumerStaple_Sample.csv"
+  
+  load_args:
+    sep: ","
+    na_values: ["#NA", NA]
+  save_args:
+    index: False
+    date_format: "%Y-%m-%d %H:%M"
+    decimal: .
+
+  fs_args:
+    open_args_save:
+      mode: "w"
+      encoding: "utf-8"
+      newline: ""
+
+
+CSV_SmallCaps_Healthcare_Sample:
+  type: pandas.CSVDataset
+  filepath: "data/02_intermediate/02_2. StratifiedSampleSelection/SmallCaps_Healthcare_Sample.csv"
+  
+  load_args:
+    sep: ","
+    na_values: ["#NA", NA]
+  save_args:
+    index: False
+    date_format: "%Y-%m-%d %H:%M"
+    decimal: .
+
+  fs_args:
+    open_args_save:
+      mode: "w"
+      encoding: "utf-8"
+      newline: ""
+
+
+CSV_SmallCaps_Utilities_Sample:
+  type: pandas.CSVDataset
+  filepath: "data/02_intermediate/02_2. StratifiedSampleSelection/SmallCaps_Utilities_Sample.csv"
+  
+  load_args:
+    sep: ","
+    na_values: ["#NA", NA]
+  save_args:
+    index: False
+    date_format: "%Y-%m-%d %H:%M"
+    decimal: .
+
+  fs_args:
+    open_args_save:
+      mode: "w"
+      encoding: "utf-8"
+      newline: ""
+
+
+CSV_SmallCaps_ComunicationServices_Sample:
+  type: pandas.CSVDataset
+  filepath: "data/02_intermediate/02_2. StratifiedSampleSelection/SmallCaps_ComunicationServices_Sample.csv"
+  
+  load_args:
+    sep: ","
+    na_values: ["#NA", NA]
+  save_args:
+    index: False
+    date_format: "%Y-%m-%d %H:%M"
+    decimal: .
+
+  fs_args:
+    open_args_save:
+      mode: "w"
+      encoding: "utf-8"
+      newline: ""
+
+
+CSV_SmallCaps_InformationTechnology_Sample:
+  type: pandas.CSVDataset
+  filepath: "data/02_intermediate/02_2. StratifiedSampleSelection/SmallCaps_InformationTechnology_Sample.csv"
+  
+  load_args:
+    sep: ","
+    na_values: ["#NA", NA]
+  save_args:
+    index: False
+    date_format: "%Y-%m-%d %H:%M"
+    decimal: .
+
+  fs_args:
+    open_args_save:
+      mode: "w"
+      encoding: "utf-8"
+      newline: ""
+
+

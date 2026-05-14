@@ -1,0 +1,418 @@
+CSV_LargeCaps_RealState:
+  type: pandas.CSVDataset
+  filepath: "data/02_intermediate/02_1. StockUniverse/LargeCaps_RealState.csv"
+  
+  load_args:
+    sep: ","
+    na_values: ["#NA", NA]
+  save_args:
+    index: False
+    date_format: "%Y-%m-%d %H:%M"
+    decimal: .
+
+  fs_args:
+    open_args_save:
+      mode: "w"
+      encoding: "utf-8"
+      newline: ""
+
+
+CSV_LargeCaps_ConsumerDiscretionary:
+  type: pandas.CSVDataset
+  filepath: "data/02_intermediate/02_1. StockUniverse/LargeCaps_ConsumerDiscretionary.csv"
+  
+  load_args:
+    sep: ","
+    na_values: ["#NA", NA]
+  save_args:
+    index: False
+    date_format: "%Y-%m-%d %H:%M"
+    decimal: .
+
+  fs_args:
+    open_args_save:
+      mode: "w"
+      encoding: "utf-8"
+      newline: ""
+
+
+CSV_LargeCaps_Energy:
+  type: pandas.CSVDataset
+  filepath: "data/02_intermediate/02_1. StockUniverse/LargeCaps_Energy.csv"
+  
+  load_args:
+    sep: ","
+    na_values: ["#NA", NA]
+  save_args:
+    index: False
+    date_format: "%Y-%m-%d %H:%M"
+    decimal: .
+
+  fs_args:
+    open_args_save:
+      mode: "w"
+      encoding: "utf-8"
+      newline: ""
+
+
+CSV_LargeCaps_Financials:
+  type: pandas.CSVDataset
+  filepath: "data/02_intermediate/02_1. StockUniverse/LargeCaps_Financials.csv"
+  
+  load_args:
+    sep: ","
+    na_values: ["#NA", NA]
+  save_args:
+    index: False
+    date_format: "%Y-%m-%d %H:%M"
+    decimal: .
+
+  fs_args:
+    open_args_save:
+      mode: "w"
+      encoding: "utf-8"
+      newline: ""
+
+
+CSV_LargeCaps_Industry:
+  type: pandas.CSVDataset
+  filepath: "data/02_intermediate/02_1. StockUniverse/LargeCaps_Industry.csv"
+  
+  load_args:
+    sep: ","
+    na_values: ["#NA", NA]
+  save_args:
+    index: False
+    date_format: "%Y-%m-%d %H:%M"
+    decimal: .
+
+  fs_args:
+    open_args_save:
+      mode: "w"
+      encoding: "utf-8"
+      newline: ""
+
+
+CSV_LargeCaps_Materials:
+  type: pandas.CSVDataset
+  filepath: "data/02_intermediate/02_1. StockUniverse/LargeCaps_Materials.csv"
+  
+  load_args:
+    sep: ","
+    na_values: ["#NA", NA]
+  save_args:
+    index: False
+    date_format: "%Y-%m-%d %H:%M"
+    decimal: .
+
+  fs_args:
+    open_args_save:
+      mode: "w"
+      encoding: "utf-8"
+      newline: ""
+
+
+CSV_LargeCaps_ConsumerStaple:
+  type: pandas.CSVDataset
+  filepath: "data/02_intermediate/02_1. StockUniverse/LargeCaps_ConsumerStaple.csv"
+  
+  load_args:
+    sep: ","
+    na_values: ["#NA", NA]
+  save_args:
+    index: False
+    date_format: "%Y-%m-%d %H:%M"
+    decimal: .
+
+  fs_args:
+    open_args_save:
+      mode: "w"
+      encoding: "utf-8"
+      newline: ""
+
+
+CSV_LargeCaps_Healthcare:
+  type: pandas.CSVDataset
+  filepath: "data/02_intermediate/02_1. StockUniverse/LargeCaps_Healthcare.csv"
+  
+  load_args:
+    sep: ","
+    na_values: ["#NA", NA]
+  save_args:
+    index: False
+    date_format: "%Y-%m-%d %H:%M"
+    decimal: .
+
+  fs_args:
+    open_args_save:
+      mode: "w"
+      encoding: "utf-8"
+      newline: ""
+
+
+CSV_LargeCaps_Utilities:
+  type: pandas.CSVDataset
+  filepath: "data/02_intermediate/02_1. StockUniverse/LargeCaps_Utilities.csv"
+  
+  load_args:
+    sep: ","
+    na_values: ["#NA", NA]
+  save_args:
+    index: False
+    date_format: "%Y-%m-%d %H:%M"
+    decimal: .
+
+  fs_args:
+    open_args_save:
+      mode: "w"
+      encoding: "utf-8"
+      newline: ""
+
+
+CSV_LargeCaps_ComunicationServices:
+  type: pandas.CSVDataset
+  filepath: "data/02_intermediate/02_1. StockUniverse/LargeCaps_ComunicationServices.csv"
+  
+  load_args:
+    sep: ","
+    na_values: ["#NA", NA]
+  save_args:
+    index: False
+    date_format: "%Y-%m-%d %H:%M"
+    decimal: .
+
+  fs_args:
+    open_args_save:
+      mode: "w"
+      encoding: "utf-8"
+      newline: ""
+
+
+CSV_LargeCaps_InformationTechnology:
+  type: pandas.CSVDataset
+  filepath: "data/02_intermediate/02_1. StockUniverse/LargeCaps_InformationTechnology.csv"
+  
+  load_args:
+    sep: ","
+    na_values: ["#NA", NA]
+  save_args:
+    index: False
+    date_format: "%Y-%m-%d %H:%M"
+    decimal: .
+
+  fs_args:
+    open_args_save:
+      mode: "w"
+      encoding: "utf-8"
+      newline: ""
+
+
+CSV_SmallCaps_RealState:
+  type: pandas.CSVDataset
+  filepath: "data/02_intermediate/02_1. StockUniverse/SmallCaps_RealState.csv"
+  
+  load_args:
+    sep: ","
+    na_values: ["#NA", NA]
+  save_args:
+    index: False
+    date_format: "%Y-%m-%d %H:%M"
+    decimal: .
+
+  fs_args:
+    open_args_save:
+      mode: "w"
+      encoding: "utf-8"
+      newline: ""
+
+
+CSV_SmallCaps_ConsumerDiscretionary:
+  type: pandas.CSVDataset
+  filepath: "data/02_intermediate/02_1. StockUniverse/SmallCaps_ConsumerDiscretionary.csv"
+  
+  load_args:
+    sep: ","
+    na_values: ["#NA", NA]
+  save_args:
+    index: False
+    date_format: "%Y-%m-%d %H:%M"
+    decimal: .
+
+  fs_args:
+    open_args_save:
+      mode: "w"
+      encoding: "utf-8"
+      newline: ""
+
+
+CSV_SmallCaps_Energy:
+  type: pandas.CSVDataset
+  filepath: "data/02_intermediate/02_1. StockUniverse/SmallCaps_Energy.csv"
+  
+  load_args:
+    sep: ","
+    na_values: ["#NA", NA]
+  save_args:
+    index: False
+    date_format: "%Y-%m-%d %H:%M"
+    decimal: .
+
+  fs_args:
+    open_args_save:
+      mode: "w"
+      encoding: "utf-8"
+      newline: ""
+
+
+CSV_SmallCaps_Financials:
+  type: pandas.CSVDataset
+  filepath: "data/02_intermediate/02_1. StockUniverse/SmallCaps_Financials.csv"
+  
+  load_args:
+    sep: ","
+    na_values: ["#NA", NA]
+  save_args:
+    index: False
+    date_format: "%Y-%m-%d %H:%M"
+    decimal: .
+
+  fs_args:
+    open_args_save:
+      mode: "w"
+      encoding: "utf-8"
+      newline: ""
+
+
+CSV_SmallCaps_Industry:
+  type: pandas.CSVDataset
+  filepath: "data/02_intermediate/02_1. StockUniverse/SmallCaps_Industry.csv"
+  
+  load_args:
+    sep: ","
+    na_values: ["#NA", NA]
+  save_args:
+    index: False
+    date_format: "%Y-%m-%d %H:%M"
+    decimal: .
+
+  fs_args:
+    open_args_save:
+      mode: "w"
+      encoding: "utf-8"
+      newline: ""
+
+
+CSV_SmallCaps_Materials:
+  type: pandas.CSVDataset
+  filepath: "data/02_intermediate/02_1. StockUniverse/SmallCaps_Materials.csv"
+  
+  load_args:
+    sep: ","
+    na_values: ["#NA", NA]
+  save_args:
+    index: False
+    date_format: "%Y-%m-%d %H:%M"
+    decimal: .
+
+  fs_args:
+    open_args_save:
+      mode: "w"
+      encoding: "utf-8"
+      newline: ""
+
+
+CSV_SmallCaps_ConsumerStaple:
+  type: pandas.CSVDataset
+  filepath: "data/02_intermediate/02_1. StockUniverse/SmallCaps_ConsumerStaple.csv"
+  
+  load_args:
+    sep: ","
+    na_values: ["#NA", NA]
+  save_args:
+    index: False
+    date_format: "%Y-%m-%d %H:%M"
+    decimal: .
+
+  fs_args:
+    open_args_save:
+      mode: "w"
+      encoding: "utf-8"
+      newline: ""
+
+
+CSV_SmallCaps_Healthcare:
+  type: pandas.CSVDataset
+  filepath: "data/02_intermediate/02_1. StockUniverse/SmallCaps_Healthcare.csv"
+  
+  load_args:
+    sep: ","
+    na_values: ["#NA", NA]
+  save_args:
+    index: False
+    date_format: "%Y-%m-%d %H:%M"
+    decimal: .
+
+  fs_args:
+    open_args_save:
+      mode: "w"
+      encoding: "utf-8"
+      newline: ""
+
+
+CSV_SmallCaps_Utilities:
+  type: pandas.CSVDataset
+  filepath: "data/02_intermediate/02_1. StockUniverse/SmallCaps_Utilities.csv"
+  
+  load_args:
+    sep: ","
+    na_values: ["#NA", NA]
+  save_args:
+    index: False
+    date_format: "%Y-%m-%d %H:%M"
+    decimal: .
+
+  fs_args:
+    open_args_save:
+      mode: "w"
+      encoding: "utf-8"
+      newline: ""
+
+
+CSV_SmallCaps_ComunicationServices:
+  type: pandas.CSVDataset
+  filepath: "data/02_intermediate/02_1. StockUniverse/SmallCaps_ComunicationServices.csv"
+  
+  load_args:
+    sep: ","
+    na_values: ["#NA", NA]
+  save_args:
+    index: False
+    date_format: "%Y-%m-%d %H:%M"
+    decimal: .
+
+  fs_args:
+    open_args_save:
+      mode: "w"
+      encoding: "utf-8"
+      newline: ""
+
+
+CSV_SmallCaps_InformationTechnology:
+  type: pandas.CSVDataset
+  filepath: "data/02_intermediate/02_1. StockUniverse/SmallCaps_InformationTechnology.csv"
+  
+  load_args:
+    sep: ","
+    na_values: ["#NA", NA]
+  save_args:
+    index: False
+    date_format: "%Y-%m-%d %H:%M"
+    decimal: .
+
+  fs_args:
+    open_args_save:
+      mode: "w"
+      encoding: "utf-8"
+      newline: ""
+
+
