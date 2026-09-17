@@ -1,0 +1,84 @@
+[project]
+name = "portfolio_recsys"
+version = "0.1.0"
+description = "Sistema de recomendación para carteras de inversión"
+authors = [{name = "Edelmín Rodríguez Castro"}]
+requires-python = "==3.12.*"
+
+
+dependencies = [
+    "yfinance==0.2.65",
+    "pandas==2.2.3",
+    "polars==1.30.0",
+    "geopandas==1.1.1",
+    "python-dotenv==1.1.1",
+    "bs4==0.0.2",
+    "requests==2.32.4",
+    "torch==2.7.1",
+    "scikit-learn==1.7.1",
+    "openpyxl==3.1.5",
+    "fastexcel==0.15.1",
+    "python-calamine==0.3.2",
+    "pyarrow==20.0.0",
+    "cvxpy==1.7.1",
+    "captum==0.9.0",
+    "kedro==1.4.0",
+    "kedro-datasets==9.2.0",
+    "kedro-viz==12.3.0",
+    "plotly==6.1.2",
+    "jinja2==3.1.6",
+    "optuna==4.1.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "ipykernel",
+    "pytest",
+    "ruff",
+    "matplotlib",
+    "nbformat",]
+
+
+
+
+
+
+
+[tool.kedro]
+package_name = "portfolio_recsys"
+project_name = "Portfolio Recommendation System"
+kedro_init_version = "1.2.0"
+tools = ""
+source_dir = "src"
+
+[tool.uv]
+package = true
+
+[tool.uv.sources]
+torch = { index = "pytorch-cu128" }
+
+[[tool.uv.index]]
+name = "pytorch-cu128"
+url = "https://download.pytorch.org/whl/cu128"
+explicit = true
+
+[dependency-groups]
+dev = [
+    "comm>=0.2.3",
+]
+
+[project.scripts]
+pr-kernel = "portfolio_recsys.tools.setup_jupyter:main"
+pr-report-pdf = "portfolio_recsys.tools.report_to_pdf:main"
+pr-prepare-datasets = "portfolio_recsys.experiments.run_prepare_datasets:main"
+pr-train-hpo = "portfolio_recsys.experiments.run_hpo_training:main"
+pr-run-all = "portfolio_recsys.experiments.run_all:main"
+pr-backtest-all = "portfolio_recsys.tools.rerun_backtests:main"
+pr-portfolio-figures = "portfolio_recsys.tools.plot_portfolio_figures:main"
+pr-backtest-aggregate-figures = "portfolio_recsys.tools.plot_backtest_aggregate_figures:main"
+pr-earlystopping-figures = "portfolio_recsys.tools.plot_earlystopping_figures:main"
+pr-backtest-csv = "portfolio_recsys.tools.extract_backtest_csv:main"
+pr-price-eval = "portfolio_recsys.tools.evaluate_price_predictions:main"
+pr-predict-test = "portfolio_recsys.tools.predict_test_split:main"
+pr-explainability = "portfolio_recsys.tools.run_explainability:main"
+pr-explainability-figures = "portfolio_recsys.tools.plot_explainability_figures:main"

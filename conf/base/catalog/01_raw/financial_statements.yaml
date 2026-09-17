@@ -1,0 +1,138 @@
+# =============================================================================
+# Catalogo: Estados financieros historicos (Excel, PartitionedDataset)
+# =============================================================================
+#
+# Descripcion:
+#   Ficheros Excel descargados de TIKR con estados financieros historicos
+#   de empresas cotizadas. Cada Excel contiene multiples hojas (Income
+#   Statement, Balance Sheet, Cash Flow, Ratios). Los ficheros estan
+#   organizados por sector en carpetas separadas. El PartitionedDataset
+#   carga todos los .xlsx del directorio como un diccionario
+#   {filename: callable}.
+#
+# Pattern: FS_{sector}
+#
+# Opciones validas para {sector} (nombre de carpeta, sin tildes):
+#   - BienesRaices       (carpeta real: BienesRaíces)
+#   - ConsumoDiscrecional
+#   - Energia            (carpeta real: Energía)
+#   - Financiero
+#   - Industria
+#   - MateriasPrimas
+#   - ProductosDePrimeraNecesidad
+#   - Servicios
+#   - ServiciosDeComunicacion  (carpeta real: ServiciosDeComunicación)
+#
+# Nota: Healthcare e InformationTechnology no tienen carpeta FS.
+#
+# Naming de ficheros dentro de cada carpeta:
+#   {currency} - {ticker} - Financials ({period_start} - {period_end}).xlsx
+#   Ejemplo: USD - BRK.A - Financials (31.12.05 - 31.12.24).xlsx
+#
+# Ejemplo resuelto:
+#   FS_Financiero
+#     → data/01_raw/01.3 - FinancialStatementHistorical/Financiero/*.xlsx
+#
+# Producido por: descarga externa (TIKR)
+# Consumido por: pipelines extract_currencies_from_filenames,
+#                parse_financial_statements
+# =============================================================================
+
+FS_BienesRaices:
+  type: partitions.PartitionedDataset
+  path: "${globals:path.raw}/${globals:step.financials_statements}/BienesRaíces"
+  dataset:
+    type: pandas.ExcelDataset
+    load_args:
+      engine: openpyxl
+  filename_suffix: ".xlsx"
+
+FS_ConsumoDiscrecional:
+  type: partitions.PartitionedDataset
+  path: "${globals:path.raw}/${globals:step.financials_statements}/ConsumoDiscrecional"
+  dataset:
+    type: pandas.ExcelDataset
+    load_args:
+      engine: openpyxl
+  filename_suffix: ".xlsx"
+
+FS_Energia:
+  type: partitions.PartitionedDataset
+  path: "${globals:path.raw}/${globals:step.financials_statements}/Energía"
+  dataset:
+    type: pandas.ExcelDataset
+    load_args:
+      engine: openpyxl
+  filename_suffix: ".xlsx"
+
+FS_Financiero:
+  type: partitions.PartitionedDataset
+  path: "${globals:path.raw}/${globals:step.financials_statements}/Financiero"
+  dataset:
+    type: pandas.ExcelDataset
+    load_args:
+      engine: openpyxl
+  filename_suffix: ".xlsx"
+
+FS_Industria:
+  type: partitions.PartitionedDataset
+  path: "${globals:path.raw}/${globals:step.financials_statements}/Industria"
+  dataset:
+    type: pandas.ExcelDataset
+    load_args:
+      engine: openpyxl
+  filename_suffix: ".xlsx"
+
+FS_MateriasPrimas:
+  type: partitions.PartitionedDataset
+  path: "${globals:path.raw}/${globals:step.financials_statements}/MateriasPrimas"
+  dataset:
+    type: pandas.ExcelDataset
+    load_args:
+      engine: openpyxl
+  filename_suffix: ".xlsx"
+
+FS_ProductosDePrimeraNecesidad:
+  type: partitions.PartitionedDataset
+  path: "${globals:path.raw}/${globals:step.financials_statements}/ProductosDePrimeraNecesidad"
+  dataset:
+    type: pandas.ExcelDataset
+    load_args:
+      engine: openpyxl
+  filename_suffix: ".xlsx"
+
+FS_Servicios:
+  type: partitions.PartitionedDataset
+  path: "${globals:path.raw}/${globals:step.financials_statements}/Servicios"
+  dataset:
+    type: pandas.ExcelDataset
+    load_args:
+      engine: openpyxl
+  filename_suffix: ".xlsx"
+
+FS_ServiciosDeComunicacion:
+  type: partitions.PartitionedDataset
+  path: "${globals:path.raw}/${globals:step.financials_statements}/ServiciosDeComunicación"
+  dataset:
+    type: pandas.ExcelDataset
+    load_args:
+      engine: openpyxl
+  filename_suffix: ".xlsx"
+
+FS_Salud:
+  type: partitions.PartitionedDataset
+  path: "${globals:path.raw}/${globals:step.financials_statements}/Salud"
+  dataset:
+    type: pandas.ExcelDataset
+    load_args:
+      engine: openpyxl
+  filename_suffix: ".xlsx"
+
+FS_TecnologiasDeLaInformacion:
+  type: partitions.PartitionedDataset
+  path: "${globals:path.raw}/${globals:step.financials_statements}/TecnologíasDeLaInformación"
+  dataset:
+    type: pandas.ExcelDataset
+    load_args:
+      engine: openpyxl
+  filename_suffix: ".xlsx"

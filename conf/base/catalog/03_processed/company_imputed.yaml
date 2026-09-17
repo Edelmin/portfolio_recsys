@@ -1,0 +1,20 @@
+# =============================================================================
+# Factory: Dataset consolidado imputado por sector (Parquet)
+# =============================================================================
+#
+# Descripcion:
+#   Dataset final con huecos rellenados, listo para modelado.
+#   Misma estructura que COMPANY_{sector} pero sin nulls.
+#
+# Estrategia de imputacion:
+#   - Precios (close_eur): forward-fill.
+#   - Campos financieros: interpolacion lineal + forward-fill al final.
+#
+# Producido por: pipeline impute_missing_values
+# Consumido por: pipelines de modelado (build_temporal_windows, etc.)
+# =============================================================================
+
+"COMPANY_IMPUTED_{sector}":
+  type: polars.EagerPolarsDataset
+  filepath: "${globals:path.processed}/company_imputed/{sector}.parquet"
+  file_format: parquet

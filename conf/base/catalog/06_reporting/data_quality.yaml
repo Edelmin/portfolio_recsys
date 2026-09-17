@@ -1,0 +1,20 @@
+# =============================================================================
+# Output: Informe de calidad de estados financieros (JSON)
+# =============================================================================
+#
+# Contenido:
+#   - Hojas disponibles por empresa (Income Statement, Cash Flow, Ratios)
+#   - Campos/metricas presentes en cada hoja
+#   - Cobertura temporal por empresa (años fiscales dentro del periodo de estudio)
+#   - Ratio de nulls por hoja
+#
+# Producido por: pipeline report_data_quality
+# Consumido por: operador humano
+# =============================================================================
+
+data_quality_report:
+  type: text.TextDataset
+  filepath: "${globals:path.reporting}/data_quality/financial_statements_report.json"
+  fs_args:
+    open_args_save:
+      encoding: "utf-8"
