@@ -1,0 +1,21 @@
+# =============================================================================
+# Dataset: Mapeo de tickers TIKR → yfinance (JSON)
+# =============================================================================
+#
+# Descripcion:
+#   Fichero JSON con la correspondencia entre los tickers usados en los
+#   estados financieros de TIKR y los simbolos de yfinance. Organizado
+#   por sector (en español con tildes).
+#
+#   Estructura: { "sector_es": { "ticker_tikr": "ticker_yfinance", ... }, ... }
+#
+# Ejemplo:
+#   { "Financiero": { "ADCB": "ADCB.AE", "BRK.A": "BRK-A", ... } }
+#
+# Producido por: generacion manual
+# Consumido por: pipeline build_company_dataset
+# =============================================================================
+
+ticker_mapping:
+  type: json.JSONDataset
+  filepath: "${globals:path.raw}/${globals:step.ticker_mapping}/AllTickersInfo.json"

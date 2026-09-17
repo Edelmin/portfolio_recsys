@@ -1,0 +1,21 @@
+# =============================================================================
+# Datasets: Precios normalizados a EUR (output de normalize_currencies)
+# =============================================================================
+
+# Precios de cierre convertidos a EUR
+stock_prices_eur:
+  type: polars.EagerPolarsDataset
+  filepath: "${globals:path.intermediate}/normalized_prices/stock_prices_eur.parquet"
+  file_format: parquet
+
+# Tickers en cuarentena (sin conversion de moneda disponible)
+stock_prices_quarantine:
+  type: polars.EagerPolarsDataset
+  filepath: "${globals:path.intermediate}/normalized_prices/quarantine.parquet"
+  file_format: parquet
+
+# Estado de conversion por ticker (CONVERTED / QUARANTINE)
+currency_conversion_status:
+  type: polars.EagerPolarsDataset
+  filepath: "${globals:path.intermediate}/normalized_prices/conversion_status.parquet"
+  file_format: parquet

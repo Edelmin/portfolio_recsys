@@ -1,0 +1,42 @@
+# =============================================================================
+# Factory: Universo de empresas parseado (Parquet)
+# =============================================================================
+#
+# Descripcion:
+#   Datos estructurados de empresas cotizadas, extraidos del HTML de TIKR.
+#   Cada registro representa una empresa con su informacion basica: simbolo,
+#   nombre, industria, valor de mercado, sector y ubicacion. Agrupados por
+#   capitalizacion de mercado y sector GICS.
+#
+# Pattern: SECTOR_{cap}_{sector}
+#
+# Opciones validas para {cap}:
+#   - LargeCaps
+#   - SmallCaps
+#
+# Opciones validas para {sector} (nombre canonico en ingles):
+#   - RealEstate
+#   - ConsumerDiscretionary
+#   - Energy
+#   - Financials
+#   - Industrials
+#   - Materials
+#   - ConsumerStaples
+#   - Healthcare
+#   - Utilities
+#   - CommunicationServices
+#   - InformationTechnology
+#
+# Ejemplo resuelto:
+#   SECTOR_LargeCaps_Financials
+#     → data/02_intermediate/02_1. StockUniverse/LargeCaps_Financials.parquet
+#
+# Producido por: pipeline parse_financials_from_html
+# Consumido por: pipelines stratified_random_sampling,
+#                extract_currencies_from_filenames
+# =============================================================================
+
+"SECTOR_{cap}_{sector}":
+  type: polars.EagerPolarsDataset
+  filepath: "${globals:path.intermediate}/${globals:step.financials_csv}/{cap}_{sector}.parquet"
+  file_format: parquet

@@ -1,0 +1,10 @@
+# =============================================================================
+# Output: Informe de conversion de monedas a EUR (JSON)
+# =============================================================================
+
+normalization_report:
+  type: text.TextDataset
+  filepath: "${globals:path.reporting}/normalization/conversion_report.json"
+  fs_args:
+    open_args_save:
+      encoding: "utf-8"

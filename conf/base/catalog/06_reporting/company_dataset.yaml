@@ -1,0 +1,21 @@
+# =============================================================================
+# Output: Informe de calidad del dataset consolidado (JSON)
+# =============================================================================
+#
+# Contenido:
+#   - Validaciones por sector: columnas obligatorias, duplicados, precios
+#     inválidos, data leakage (fiscal_date > date)
+#   - Completitud: ratio de nulls por columna
+#   - Estadísticas de log-returns y ratios derivados
+#   - Resumen por ticker: rango temporal, filas, nulls
+#
+# Producido por: pipeline report_company_dataset
+# Consumido por: operador humano
+# =============================================================================
+
+company_dataset_report:
+  type: text.TextDataset
+  filepath: "${globals:path.reporting}/company_dataset/quality_report.json"
+  fs_args:
+    open_args_save:
+      encoding: "utf-8"

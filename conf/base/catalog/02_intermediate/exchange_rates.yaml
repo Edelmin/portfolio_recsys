@@ -1,0 +1,15 @@
+# =============================================================================
+# Datasets: Pares de divisa historicos (output de fetch_exchange_rates)
+# =============================================================================
+
+# Series historicas de tipo de cambio XXX/EUR
+exchange_rates:
+  type: polars.EagerPolarsDataset
+  filepath: "${globals:path.intermediate}/exchange_rates/exchange_rates.parquet"
+  file_format: parquet
+
+# Estado de la descarga de cada par (OK, NO_DATA, ERROR)
+exchange_rates_fetch_status:
+  type: polars.EagerPolarsDataset
+  filepath: "${globals:path.intermediate}/exchange_rates/fetch_status.parquet"
+  file_format: parquet

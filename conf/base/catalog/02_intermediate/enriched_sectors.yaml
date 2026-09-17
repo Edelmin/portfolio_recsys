@@ -1,0 +1,57 @@
+# =============================================================================
+# Factory: Empresas enriquecidas con divisa (Parquet)
+# =============================================================================
+#
+# Descripcion:
+#   Dataset de empresas (mismo contenido que SECTOR_*) enriquecido con la
+#   informacion de divisa extraida de los nombres de fichero de los estados
+#   financieros. Agrega las columnas: currency (moneda del estado financiero),
+#   period_start y period_end (cobertura temporal del fichero).
+#
+# Pattern: ENRICHED_{cap}_{sector}
+#
+# Opciones validas para {cap}:
+#   - LargeCaps
+#   - SmallCaps
+#
+# Opciones validas para {sector} (nombre canonico en ingles):
+#   - RealEstate
+#   - ConsumerDiscretionary
+#   - Energy
+#   - Financials
+#   - Industrials
+#   - Materials
+#   - ConsumerStaples
+#   - Utilities
+#   - CommunicationServices
+#
+# Nota: Healthcare e InformationTechnology no tienen FS_, por lo que
+#       no se generan ENRICHED_ para esos sectores.
+#
+# Ejemplo resuelto:
+#   ENRICHED_LargeCaps_Financials
+#     → data/02_intermediate/enriched/LargeCaps_Financials.parquet
+#
+# Producido por: pipeline extract_currencies_from_filenames
+# Consumido por: pipelines posteriores de consolidacion
+# =============================================================================
+
+"ENRICHED_{cap}_{sector}":
+  type: polars.EagerPolarsDataset
+  filepath: "${globals:path.intermediate}/enriched/{cap}_{sector}.parquet"
+  file_format: parquet
+
+# =============================================================================
+# Informe de matching sectores-divisas (Markdown)
+# =============================================================================
+#
+# Producido por: pipeline enrich_sectors_with_currencies
+# Consumido por: operador humano (human-in-the-loop)
+# =============================================================================
+
+enrichment_matching_report:
+  type: text.TextDataset
+  filepath: "${globals:path.reporting}/enrich_sectors/matching_report.md"
+  fs_args:
+    open_args_save:
+      encoding: "utf-8"

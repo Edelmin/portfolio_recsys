@@ -1,0 +1,8 @@
+# Rutas base al filesystem local (no se versionan, cada máquina puede tener las suyas)
+path:
+  raw: "data/01_raw"
+  intermediate: "data/02_intermediate"
+  processed: "data/03_processed"
+  models: "data/04_models"
+  model_outputs: "data/05_model_outputs"
+  reporting: "data/06_reporting"

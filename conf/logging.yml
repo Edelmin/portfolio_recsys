@@ -1,0 +1,48 @@
+# Configuracion de logging del proyecto (trazabilidad).
+#
+# Ademas de la consola (rich), se escribe a ficheros bajo logs/:
+#   - logs/kedro.log      : log general de la aplicacion (rotado).
+#   - logs/errors.log     : solo WARNING y superior (rotado).
+#
+# Kedro carga este fichero automaticamente si existe en conf/.
+version: 1
+disable_existing_loggers: false
+
+formatters:
+  simple:
+    format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+
+handlers:
+  console:
+    class: kedro.logging.RichHandler
+    rich_tracebacks: true
+
+  info_file_handler:
+    class: logging.handlers.RotatingFileHandler
+    level: INFO
+    formatter: simple
+    filename: logs/kedro.log
+    maxBytes: 10485760 # 10 MB
+    backupCount: 10
+    encoding: utf8
+    delay: true
+
+  error_file_handler:
+    class: logging.handlers.RotatingFileHandler
+    level: WARNING
+    formatter: simple
+    filename: logs/errors.log
+    maxBytes: 10485760 # 10 MB
+    backupCount: 10
+    encoding: utf8
+    delay: true
+
+loggers:
+  kedro:
+    level: INFO
+
+  portfolio_recsys:
+    level: INFO
+
+root:
+  handlers: [console, info_file_handler, error_file_handler]

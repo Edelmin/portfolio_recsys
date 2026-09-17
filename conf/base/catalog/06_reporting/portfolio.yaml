@@ -1,0 +1,103 @@
+# =============================================================================
+# Outputs del pipeline report_portfolio (backtest Markowitz) + tablas de
+# prediccion que consume.
+# =============================================================================
+#
+# LAYOUT DE 3 EJES: window / segmentation / horizon (ver model_features.yaml).
+#
+# CONVENCION DE IDENTIFICADORES:
+#   {base}__unified__{window}__{horizon}
+#   {base}__sector_{sector}__{window}__{horizon}
+#
+# Construidos en codigo con portfolio_recsys.paths.dataset_name().
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Tablas de prediccion (generadas por el entrenamiento / pr-predict-test)
+# -----------------------------------------------------------------------------
+
+# --- UNIFIED ---
+"prediction_table__unified__{window}__{horizon}":
+  type: polars.EagerPolarsDataset
+  filepath: "${globals:path.model_outputs}/predictions/{window}/unified/{horizon}/prediction_table.parquet"
+  file_format: parquet
+
+"prediction_table_test__unified__{window}__{horizon}":
+  type: polars.EagerPolarsDataset
+  filepath: "${globals:path.model_outputs}/predictions/{window}/unified/{horizon}/prediction_table_test.parquet"
+  file_format: parquet
+
+# Predicciones de TEST separadas por tipo de dataset (market / enriched).
+# Se generan ambas por combinacion (pr-predict-test) para poder comparar y
+# construir carteras con cada una por separado.
+"prediction_table_test_market__unified__{window}__{horizon}":
+  type: polars.EagerPolarsDataset
+  filepath: "${globals:path.model_outputs}/predictions/{window}/unified/{horizon}/prediction_table_test_market.parquet"
+  file_format: parquet
+
+"prediction_table_test_enriched__unified__{window}__{horizon}":
+  type: polars.EagerPolarsDataset
+  filepath: "${globals:path.model_outputs}/predictions/{window}/unified/{horizon}/prediction_table_test_enriched.parquet"
+  file_format: parquet
+
+# --- BY_SECTOR ---
+"prediction_table__sector_{sector}__{window}__{horizon}":
+  type: polars.EagerPolarsDataset
+  filepath: "${globals:path.model_outputs}/predictions/{window}/by_sector/{sector}/{horizon}/prediction_table.parquet"
+  file_format: parquet
+
+"prediction_table_test__sector_{sector}__{window}__{horizon}":
+  type: polars.EagerPolarsDataset
+  filepath: "${globals:path.model_outputs}/predictions/{window}/by_sector/{sector}/{horizon}/prediction_table_test.parquet"
+  file_format: parquet
+
+# -----------------------------------------------------------------------------
+# Resultados de backtest de carteras Markowitz
+# -----------------------------------------------------------------------------
+
+# --- UNIFIED ---
+"portfolio_backtest_results__unified__{window}__{horizon}":
+  type: json.JSONDataset
+  filepath: "${globals:path.reporting}/portfolio/{window}/unified/{horizon}/backtest_results.json"
+
+"portfolio_report__unified__{window}__{horizon}":
+  type: text.TextDataset
+  filepath: "${globals:path.reporting}/portfolio/{window}/unified/{horizon}/portfolio_report.md"
+  fs_args:
+    open_args_save:
+      encoding: "utf-8"
+
+# Backtest de carteras separado por tipo de dataset (market / enriched).
+"portfolio_backtest_results_market__unified__{window}__{horizon}":
+  type: json.JSONDataset
+  filepath: "${globals:path.reporting}/portfolio/{window}/unified/{horizon}/backtest_results_market.json"
+
+"portfolio_report_market__unified__{window}__{horizon}":
+  type: text.TextDataset
+  filepath: "${globals:path.reporting}/portfolio/{window}/unified/{horizon}/portfolio_report_market.md"
+  fs_args:
+    open_args_save:
+      encoding: "utf-8"
+
+"portfolio_backtest_results_enriched__unified__{window}__{horizon}":
+  type: json.JSONDataset
+  filepath: "${globals:path.reporting}/portfolio/{window}/unified/{horizon}/backtest_results_enriched.json"
+
+"portfolio_report_enriched__unified__{window}__{horizon}":
+  type: text.TextDataset
+  filepath: "${globals:path.reporting}/portfolio/{window}/unified/{horizon}/portfolio_report_enriched.md"
+  fs_args:
+    open_args_save:
+      encoding: "utf-8"
+
+# --- BY_SECTOR ---
+"portfolio_backtest_results__sector_{sector}__{window}__{horizon}":
+  type: json.JSONDataset
+  filepath: "${globals:path.reporting}/portfolio/{window}/by_sector/{sector}/{horizon}/backtest_results.json"
+
+"portfolio_report__sector_{sector}__{window}__{horizon}":
+  type: text.TextDataset
+  filepath: "${globals:path.reporting}/portfolio/{window}/by_sector/{sector}/{horizon}/portfolio_report.md"
+  fs_args:
+    open_args_save:
+      encoding: "utf-8"

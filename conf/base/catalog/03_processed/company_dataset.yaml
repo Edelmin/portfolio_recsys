@@ -1,0 +1,23 @@
+# =============================================================================
+# Factory: Dataset consolidado por sector (Parquet)
+# =============================================================================
+#
+# Descripcion:
+#   Dataset final con precios diarios en EUR + metricas financieras anuales
+#   para cada empresa, agrupado por sector GICS.
+#
+# Pattern: COMPANY_{sector}
+#
+# Columnas principales:
+#   - date, ticker, close, close_eur, currency_original, rate_to_eur
+#   - sector
+#   - [metricas financieras: Return on Assets %, ROE %, etc. — por año fiscal]
+#
+# Producido por: pipeline build_company_dataset
+# Consumido por: pipelines de modelado (build_temporal_windows, etc.)
+# =============================================================================
+
+"COMPANY_{sector}":
+  type: polars.EagerPolarsDataset
+  filepath: "${globals:path.processed}/company_dataset/{sector}.parquet"
+  file_format: parquet

@@ -1,0 +1,15 @@
+# =============================================================================
+# Datasets: Precios historicos de acciones (output de fetch_stock_prices)
+# =============================================================================
+
+# Precios OHLCV consolidados de todos los tickers
+stock_prices:
+  type: polars.EagerPolarsDataset
+  filepath: "${globals:path.intermediate}/stock_prices/stock_prices.parquet"
+  file_format: parquet
+
+# Estado de la descarga por ticker (OK, NO_DATA, ERROR)
+stock_prices_fetch_status:
+  type: polars.EagerPolarsDataset
+  filepath: "${globals:path.intermediate}/stock_prices/fetch_status.parquet"
+  file_format: parquet

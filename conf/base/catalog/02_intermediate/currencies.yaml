@@ -1,0 +1,40 @@
+# =============================================================================
+# Factory: Divisas por sector extraidas de los estados financieros (Parquet)
+# =============================================================================
+#
+# Descripcion:
+#   Tabla de mapeo ticker → divisa, extraida de los nombres de fichero de
+#   los estados financieros (patron: {currency} - {ticker} - Financials...).
+#   Incluye tambien el periodo temporal cubierto por cada fichero.
+#   Se usa como input para saber que pares de divisas descargar (XXX/EUR).
+#
+# Pattern: currencies_{sector}
+#
+# Opciones validas para {sector} (nombre canonico en ingles):
+#   - RealEstate
+#   - ConsumerDiscretionary
+#   - Energy
+#   - Financials
+#   - Industrials
+#   - Materials
+#   - ConsumerStaples
+#   - Utilities
+#   - CommunicationServices
+#
+# Nota: Healthcare e InformationTechnology no tienen FS_, por lo que
+#       no se generan currencies_ para esos sectores.
+#
+# Columnas: ticker, currency, sector, period_start, period_end
+#
+# Ejemplo resuelto:
+#   currencies_Financials
+#     → data/02_intermediate/currencies/Financials.parquet
+#
+# Producido por: pipeline extract_currencies_from_filenames
+# Consumido por: pipeline fetch_exchange_rates
+# =============================================================================
+
+"currencies_{sector}":
+  type: polars.EagerPolarsDataset
+  filepath: "${globals:path.intermediate}/currencies/{sector}.parquet"
+  file_format: parquet

@@ -1,0 +1,28 @@
+# =============================================================================
+# Factory: Estados financieros convertidos a EUR (Parquet, PartitionedDataset)
+# =============================================================================
+#
+# Descripcion:
+#   Estados financieros ya limpios y convertidos a EUR, un fichero Parquet por
+#   empresa, organizados en subcarpetas {cap}/{sector_canonico}. Son la fuente
+#   de estados financieros que se une (join) con los precios EUR en el pipeline
+#   build_company_dataset para producir COMPANY_{sector}.
+#
+# Pattern: FS_EUR_{cap}_{canonical}
+#   - cap:       LargeCaps | SmallCaps
+#   - canonical: nombre canonico en ingles del sector (Energy, Financials, ...)
+#
+# Cada particion (empresa) se carga como pl.DataFrame via EagerPolarsDataset.
+# El PartitionedDataset devuelve un dict {nombre_fichero: callable -> pl.DataFrame}.
+#
+# Producido por: pipeline validate_price_currencies / normalize_currencies
+# Consumido por: pipeline build_company_dataset (join con stock_prices_eur)
+# =============================================================================
+
+"FS_EUR_{cap}_{canonical}":
+  type: partitions.PartitionedDataset
+  path: "${globals:path.intermediate}/${globals:step.financials_eur}/{cap}/{canonical}"
+  dataset:
+    type: polars.EagerPolarsDataset
+    file_format: parquet
+  filename_suffix: ".parquet"
