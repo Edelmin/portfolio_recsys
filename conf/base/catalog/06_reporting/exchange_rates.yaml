@@ -1,0 +1,14 @@
+# =============================================================================
+# Output: Informe de validacion de pares de divisa (JSON)
+# =============================================================================
+#
+# Producido por: pipeline report_exchange_rates
+# Consumido por: operador humano
+# =============================================================================
+
+exchange_rates_report:
+  type: text.TextDataset
+  filepath: "${globals:path.reporting}/exchange_rates/validation_report.json"
+  fs_args:
+    open_args_save:
+      encoding: "utf-8"

@@ -1,0 +1,38 @@
+# =============================================================================
+# Datasets: Benchmark de mercado (S&P 500) + activo seguro
+# =============================================================================
+#
+# Producido por: pipeline fetch_benchmark_prices (indice via yfinance + serie
+#   sintetica del activo seguro) y normalize_currencies (conversion a EUR).
+# Consumido por: pipeline report_portfolio (comparadores del backtest).
+# =============================================================================
+
+# Precios OHLCV del indice + activo seguro en moneda nativa
+benchmark_prices:
+  type: polars.EagerPolarsDataset
+  filepath: "${globals:path.intermediate}/benchmark/benchmark_prices.parquet"
+  file_format: parquet
+
+# Estado de la descarga/generacion por serie
+benchmark_prices_fetch_status:
+  type: polars.EagerPolarsDataset
+  filepath: "${globals:path.intermediate}/benchmark/fetch_status.parquet"
+  file_format: parquet
+
+# Precios del benchmark convertidos a EUR (output de normalize_currencies)
+benchmark_prices_eur:
+  type: polars.EagerPolarsDataset
+  filepath: "${globals:path.intermediate}/benchmark/benchmark_prices_eur.parquet"
+  file_format: parquet
+
+# Series del benchmark sin conversion disponible (cuarentena)
+benchmark_prices_quarantine:
+  type: polars.EagerPolarsDataset
+  filepath: "${globals:path.intermediate}/benchmark/quarantine.parquet"
+  file_format: parquet
+
+# Estado de conversion por serie (CONVERTED / QUARANTINE)
+benchmark_conversion_status:
+  type: polars.EagerPolarsDataset
+  filepath: "${globals:path.intermediate}/benchmark/conversion_status.parquet"
+  file_format: parquet

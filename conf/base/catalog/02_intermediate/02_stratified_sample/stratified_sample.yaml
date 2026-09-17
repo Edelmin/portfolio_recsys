@@ -1,0 +1,61 @@
+# =============================================================================
+# Factory: Muestra estratificada de empresas (Parquet)
+# =============================================================================
+#
+# Descripcion:
+#   Subconjunto estadisticamente representativo del universo de empresas,
+#   obtenido mediante muestreo aleatorio estratificado (confianza 95%,
+#   error 5%). Mantiene la misma estructura que SECTOR_* pero con menos
+#   filas. Agrupado por capitalizacion de mercado y sector GICS.
+#
+# Pattern: SAMPLE_{cap}_{sector}
+#
+# Opciones validas para {cap}:
+#   - LargeCaps
+#   - SmallCaps
+#
+# Opciones validas para {sector} (nombre canonico en ingles):
+#   - RealEstate
+#   - ConsumerDiscretionary
+#   - Energy
+#   - Financials
+#   - Industrials
+#   - Materials
+#   - ConsumerStaples
+#   - Healthcare
+#   - Utilities
+#   - CommunicationServices
+#   - InformationTechnology
+#
+# Ejemplo resuelto:
+#   SAMPLE_LargeCaps_Energy
+#     → data/02_intermediate/02_2. StratifiedSampleSelection/LargeCaps_Energy_Sample.parquet
+#
+# Producido por: pipeline stratified_random_sampling
+# Consumido por: pipelines de descarga de precios (fetch_stock_prices)
+# =============================================================================
+
+"SAMPLE_{cap}_{sector}":
+  type: polars.EagerPolarsDataset
+  filepath: "${globals:path.intermediate}/${globals:step.financials_ss}/{cap}_{sector}_Sample.parquet"
+  file_format: parquet
+
+# =============================================================================
+# Informe de muestra estratificada (Markdown)
+# =============================================================================
+#
+# Descripcion:
+#   Informe legible para el operador humano con la lista de empresas
+#   seleccionadas en la muestra. Se usa para saber que estados financieros
+#   descargar manualmente de TIKR.
+#
+# Producido por: pipeline stratified_random_sampling (nodo generate_sample_report)
+# Consumido por: operador humano (human-in-the-loop)
+# =============================================================================
+
+sample_report:
+  type: text.TextDataset
+  filepath: "${globals:path.reporting}/stratified_sampling/sample_report.md"
+  fs_args:
+    open_args_save:
+      encoding: "utf-8"

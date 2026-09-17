@@ -1,0 +1,39 @@
+# =============================================================================
+# Catalogo: Estados financieros en Parquet (output de parse_financial_statements)
+# =============================================================================
+#
+# Descripcion:
+#   Ficheros Parquet generados a partir de los Excel originales de TIKR.
+#   Cada Excel produce hasta 3 ficheros Parquet (uno por hoja):
+#     - {filename}-Income_Statement.parquet
+#     - {filename}-Cash_Flow.parquet
+#     - {filename}-Ratios.parquet
+#
+# Estructura de salida:
+#   data/02_intermediate/02_3_0. RawFinancialStatements_Parquet/
+#     ├── LargeCaps/
+#     │   ├── RealEstate/
+#     │   │   ├── AUD - CHC - Financials (30.6.07 - 30.6.24)-Income_Statement.parquet
+#     │   ├── AUD - CHC - Financials (30.6.07 - 30.6.24)-Cash_Flow.parquet
+#     │   ├── AUD - CHC - Financials (30.6.07 - 30.6.24)-Ratios.parquet
+#     │   └── ...
+#     ├── Financials/
+#     │   └── ...
+#     └── ...
+#
+# Producido por: pipeline parse_financial_statements
+# Consumido por: pipeline clean_financial_statements (etapa 2)
+#
+# Nota: No se define como dataset del catalogo porque el nodo escribe
+# directamente al filesystem (pl.write_parquet). El pipeline posterior
+# puede usar un PartitionedDataset con polars.EagerPolarsDataset sobre
+# estos ficheros Parquet sin problemas.
+# =============================================================================
+
+# Output del nodo: estadisticas de conversion (dict en memoria)
+parse_fs_stats:
+  type: MemoryDataset
+
+# Output del nodo: estadisticas de limpieza (dict en memoria)
+clean_fs_stats:
+  type: MemoryDataset

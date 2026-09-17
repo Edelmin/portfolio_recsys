@@ -1,0 +1,310 @@
+    # Ventas totales. Facturación.
+
+  - field_name: "Total Revenues"
+    es_name: "Ingresos totales"
+    original_description: "Proceeds from the sale of products and/or services."
+    es_descripcion: "Ingresos procedentes de la venta de productos y/o servicios"
+    enriched_description: "Ingresos procedentes de la venta de productos y/o servicios."
+
+    ## Ratio o métrica
+  - field_name: "% Change YoY"
+    es_name: "Tasa de cambio interanual"
+    original_description: "Percent change year-over-year. Defined as (this year)/(last year) - 1"
+    es_descripcion: "Porcentaje de cambio año a año, definido como (facturación este año)/(facturación año anterior) - 1"
+    enriched_description: "Porcentaje de cambio año a año, definido como (facturación este año)/(facturación año anterior) - 1"
+
+    ## Costes de la actividad.
+  - field_name: "Cost of Goods Sold"
+    es_name: "Coste de los bienes vendidos"
+    original_description: "Cost of Goods Sold represents cost of revenue incurred on all raw materials, work in process, manufacturing, expenses and other costs directly attributable to production of finished goods and operating revenues. This refers to the total cost of manufacturing and delivering the product or service to consumers."
+    es_descripcion: "El coste de los productos vendidos representa el coste de los ingresos incurrido en todas las materias primas, los productos en curso, los gastos de fabricación y otros costes directamente atribuibles a la producción de productos terminados y a los ingresos de explotación. Se refiere al coste total de fabricar y entregar el producto o servicio a los consumidores."
+    enriched_description: "Coste de los bienes vendidos. El coste de los productos vendidos representa el coste de los ingresos incurrido en todas las materias primas, los productos en curso, los gastos de fabricación y otros costes directamente atribuibles a la producción de productos terminados y a los ingresos de explotación. Se refiere al coste total de fabricar y entregar el producto o servicio a los consumidores."
+
+
+    # Margen bruto. 
+  - field_name: "Gross Profit"
+    es_name: "Beneficio bruto"
+    original_description: "Total revenues - Cost of Revenues"
+    es_descripcion: "Ingresos totales - Costes, o equivalentemente, Ingresos totales - Coste de los bienes vendidos"
+    enriched_description: "Beneficio bruto, en términos absolutos. Es lo que queda tras restar los costes de los bienes vendidos. Se calcula como (Total revenues) - (Cost of Revenues) = (Total revenues) - (Cost of Goods Sold)"
+
+    ## Ratio o métrica
+  - field_name: "% Gross Margins"
+    es_name: "Porcentaje de margen bruto"
+    original_description: "Gross Profit / Total Revenues"
+    es_descripcion: "Beneficio bruto / Ingresos totales"
+    enriched_description: "Porcentaje de margen bruto respecto a las ventas totales. Se calcula como Beneficio bruto / Ingresos totales"
+
+
+    # EBITDA
+  - field_name: "Selling General & Admin Expenses"
+    es_name: "Gastos de venta generales y administrativos"
+    original_description: "Represents all costs incurred towards selling, general and administrative expense. It is a composition of advertising, marketing, administrative, plan contributions, delivery and distributions; storage, employee benefits; general and other indirect production related expenditures."
+    es_descripcion: "Representa todos los costes incurridos en concepto de gastos de venta y gastos generales de administración. Se compone de gastos de publicidad, marketing, administrativos, aportaciones a planes de pensiones, entrega y distribución; almacenamiento, personal y prestaciones sociales; así como gastos generales y otros gastos indirectos relacionados con la producción."
+    enriched_description: "Representa todos los costes incurridos en concepto de gastos de venta y gastos generales de administración. Se compone de gastos de publicidad, marketing, administrativos, aportaciones a planes de pensiones, entrega y distribución; almacenamiento, personal y prestaciones sociales; así como gastos generales y otros gastos indirectos relacionados con la producción."
+
+  - field_name: "% of Revenue"
+    es_name: "Porcentaje respecto a Ingresos Totales"
+    original_description:
+    es_descripcion:
+    enriched_description: "Porcentaje que representa la métrica precedente respecto de la facturación, o lo que es lo mismo, de los ingresos totales."
+
+
+  - field_name: "Other Operating Expenses"
+    es_name: "Otros gastos operacionales."
+    original_description:
+    es_descripcion:
+    enriched_description: "Otros gastos operacionales."
+
+
+    # EBIT, Resultado de explotación o rentabilidad operativa.
+  - field_name: "Depreciation, Amortization, Depletion"
+    es_name: "Depreciación, amortización y agotamiento"
+    original_description:
+    es_descripcion:
+    enriched_description: "Gastos no monetarios que reflejan la pérdida de valor de los activos de una empresa a lo largo de su vida útil. Depreciación: Se aplica a los activos tangibles que no generan beneficios de forma directa (maquinaria, vehículos, edificios) y distribuye sistemáticamente el coste por desgaste o paso del tiempo. Amortización: Se refiere a los activos intangibles (patentes, software, fondos de comercio) y representa la transferencia sistemática de su valor a la cuenta de resultados. Agotamiento: Se utiliza específicamente para recursos naturales (minería, petróleo, bosques) y calcula la reducción del activo en función de la extracción o consumo del recurso."
+
+  - field_name: "Total Operating Expenses"
+    es_name: "Gastos operativos totales"
+    original_description:
+    es_descripcion:
+    enriched_description: "La suma de todos los gastos operativos, incluyendo la amortización, depreciación y agotamiento."
+
+  - field_name: "Operating Income"
+    es_name: "Beneficios operativos"
+    original_description: "Gross Profit - Total Operating Expenses"
+    es_descripcion: 
+    enriched_description: "Beneficio obtenido tras restar los costes de los bienes vendidos y los gastos operativos, incluyendo la amortización, depreciación y agotamiento de los activos de la actividad económica."
+
+  - field_name: "% Operating Margins"
+    es_name: "Porcentaje de beneficio operativo"
+    original_description: "Operating Income/Total Revenues"
+    es_descripcion:
+    enriched_description: "Porcentaje de margen operativo respecto a los ingresos totales."
+
+    # Beneficio neto
+  - field_name: "Interest Expense"
+    es_name: "Gastos por intereses"
+    original_description: "Represents the interest expense incurred by the company on debt taken."
+    es_descripcion: "Representa los gastos por intereses en que incurre la empresa por la deuda contraída."
+    enriched_description: "Representa los gastos por intereses en que incurre la empresa por la deuda contraída."
+
+    #TODO: Revisar si es otro campo.
+        # "Interest And Investment Income": "Ganancias (pérdidas) cambiarias. Represents the impact of foreign currency exchange rate fluctuations on a companys financials.",
+  - field_name: "Interest And Investment Income"
+    es_name: 
+    original_description:
+    es_descripcion:
+    enriched_description:
+
+  - field_name: "Income (Loss) On Equity Invest."
+    es_name: "Ingresos (pérdidas) sobre el capital invertido"
+    original_description: "This item includes Parent/Investor Company's share of earning/profit derived from equity method of investments in affiliates/joint ventures/partnership firms and unconsolidated subsidiaries."
+    es_descripcion: "Esta partida incluye la participación de la sociedad matriz o inversora en los resultados o beneficios derivados de las inversiones contabilizadas por el método de puesta en equivalencia en empresas asociadas, empresas conjuntas, sociedades en participación y filiales no consolidadas."
+    enriched_description: "Los ingresos o pérdidas sobre el capital invertido se reflejan en la cuenta de resultados como el resultado de las inversiones financieras de la empresa, específicamente a través de los ingresos financieros y los gastos financieros. Esta partida incluye la participación de la sociedad matriz o inversora en los resultados o beneficios derivados de las inversiones contabilizadas por el método de puesta en equivalencia en empresas asociadas, empresas conjuntas, sociedades en participación y filiales no consolidadas. Se consideran Ingresos Financieros a entradas monetarias obtenidas por las inversiones financieras de la empresa, como intereses recibidos por depósitos, dividendos de acciones o participaciones, y plusvalías por la venta de activos financieros. Se considera Pérdidas (Gastos) financieros a salidas monetarias o disminuciones de valor derivadas de operaciones financieras, principalmente los intereses por préstamos, créditos, empréstitos u otros pasivos financieros, así como las pérdidas por deterioro o diferencias de cambio en instrumentos financieros. En la estructura de la cuenta de resultados, estos conceptos se agrupan en el resultado financiero, el cual se suma o resta al beneficio de explotación (EBIT) para determinar el beneficio antes de impuestos (BAI). A diferencia de las operaciones principales de la empresa, estas partidas no representan la actividad operativa central, sino la rentabilidad o coste de la gestión del capital excedente o de la financiación externa."
+
+  - field_name: "Other Non Operating Income (Expenses)"
+    es_name: "Otros ingresos (gastos) no operativos"
+    original_description:
+    es_descripcion:
+    enriched_description: "Los Otros ingresos (gastos) no operativos son partidas financieras o extraordinarias que no provienen de la actividad principal de la empresa, pero que afectan su situación financiera y se registran en la cuenta de resultados.  Estos elementos se incluyen después del resultado de explotación para determinar el beneficio antes de impuestos y suelen ser impredecibles o esporádicos. Se clasifican principalmente en: Otros ingresos: Incluyen ganancias por la venta de activos fijos, intereses ganados por inversiones, arrendamientos cobrados, ganancias por juicios o fluctuaciones favorables en el tipo de cambio. Otros gastos: Engloban pérdidas por la venta de activos, intereses pagados por préstamos, pérdidas por variaciones desfavorables del tipo de cambio, multas, demandas laborales o ajustes por inflación. Dependerá del tipo de actividad que haga la empresa."
+
+  - field_name: "Merger & Restructuring Expense"
+    es_name: "Cargos de fusión y reestructuración"
+    original_description:
+    es_descripcion:
+    enriched_description: "Gastos operativos que reflejan los costos directos asociados a una reorganización empresarial, como fusiones, escisiones o cambios en la estructura del negocio."
+
+  - field_name: "Impairment Of Capital Assets"
+    es_name: "Deterioro del fondo de comercio."
+    original_description:
+    es_descripcion:
+    enriched_description: "Pérdida contable que se reconoce cuando el valor en libros del fondo de comercio excede su importe recuperable (el mayor entre su valor razonable menos costes de venta y su valor en uso)"
+
+  - field_name: "Other Unusual Items"
+    es_name: "Otras partidas extraordinarias"
+    original_description:
+    es_descripcion:
+    enriched_description: "Son ingresos o gastos que provienen de eventos o transacciones inusuales, infrecuentes y distintos de las actividades ordinarias de una empresa, los cuales no se esperan que se repitan en el futuro previsible."
+
+  - field_name: "EBT Incl. Unusual Items"
+    es_name: "EBT incl. Partidas extraordinarias."
+    original_description:
+    es_descripcion:
+    enriched_description: " EBT es Earning Before Taxes, la utilidad o beneficios antes de impuestos. Es un indicador financiero que mide el beneficio de la empresa antes de deducir los impuestos, reflejando el impacto de la estructura de financiación (intereses) pero excluyendo la carga fiscal."
+
+  - field_name: "Income Tax Expense"
+    es_name: "Gastos en impuestos"
+    original_description:
+    es_descripcion:
+    enriched_description: "Corresponde al impuesto sobre la renta que se abona al Estado por los beneficios obtenidos durante un período determinado o un ejercicio fiscal concreto."
+
+  - field_name: "Effective Tax Rate %"
+    es_name: "Tasa efectiva de impuestos"
+    original_description: "(Income Tax Expenses) / (EBT, Incl. Unusual Items.)"
+    es_descripcion: "(Gastos en impuestos) / (EBT incl. Partidas extraordinarias.)"
+    enriched_description: "Porcentaje o proporción de gastos en impuestos respecto al beneficio operativo, incluyendo las partidas extraordinarias."
+
+  - field_name: "Earnings From Continuing Operations"
+    es_name: "Beneficios por operaciones continuadas"
+    original_description: 
+    es_descripcion: 
+    enriched_description: "Son las ganancias o pérdidas derivadas de las actividades principales y habituales de una empresa, excluyendo los resultados de operaciones interrumpidas, partidas extraordinarias y efectos fiscales no recurrentes."
+
+  - field_name: "Minority Interest"
+    es_name: "Interés minoritario"
+    original_description:
+    es_descripcion:
+    enriched_description: "Porción de las ganancias o pérdidas de una filial que corresponde a los accionistas externos que poseen menos del 50% de la participación accionaria. Se determina multiplicando el beneficio neto de la filial por el porcentaje de propiedad que ostentan los accionistas minoritarios. Se deduce de la utilidad neta consolidada total para llegar a la utilidad neta atribuible a la empresa matriz, garantizando una visión precisa de la rentabilidad controlada por la entidad dominante."
+
+  - field_name: "Net Income to Company"
+    es_name: "Beneficio neto de la empresa"
+    original_description:
+    es_descripcion:
+    enriched_description:
+
+
+    # Nota: Es lo que va al beneficio básico por acción (EPS). Puede haber de dos tipos, incluyendo o excluyendo extraordinarios. 
+  - field_name: "Net Income to Common"
+    es_name: "Ingresos netos a acciones comunes"
+    original_description:
+    es_descripcion:
+    enriched_description: "Representan la porción de las ganancias netas de una empresa que corresponde a cada acción ordinaria en circulación.  Esta métrica se calcula restando los dividendos de acciones preferentes de los ingresos netos totales y dividiendo el resultado por el número promedio ponderado de acciones comunes en circulación durante el período. (Ingresos Netos - Dividendos Preferentes) / Acciones Comunes en Circulación"
+
+  - field_name: "% Net Income Margins"
+    es_name: "Porcentaje de beneficio neto"
+    original_description:
+    es_descripcion:
+    enriched_description: "Porcenaje de beneficio neto respecto de los ingresos totales."
+
+  - field_name: "Weighted Average Diluted Shares Outstanding"
+    es_name: "Promedio ponderado de acciones en circulación diluidas."
+    original_description:
+    es_descripcion:
+    enriched_description: "El promedio ponderado de acciones en circulación diluidas es el denominador utilizado para calcular las Ganancias por Acción Diluidas (EPS diluida), una métrica financiera que refleja el rendimiento por acción bajo el supuesto de que todos los instrumentos potencialmente dilutivos (como opciones sobre acciones, warrants, deuda convertible o bonos convertibles) se hubieran convertido en acciones ordinarias. Este cálculo se basa en la NIC 33 y se determina ajustando el número promedio ponderado de acciones ordinarias en circulación (el usado para el EPS básico) para incluir el efecto dilutivo de estas acciones potenciales, proporcionando así una visión más conservadora y realista de la participación accionaria en los resultados de la empresa."
+
+  - field_name: "Diluted EPS"
+    es_name: 
+    original_description:
+    es_descripcion:
+    enriched_description: "Indica la porción del beneficio neto de una empresa que corresponde a cada acción, asumiendo que todos los valores convertibles (como opciones sobre acciones, bonos convertibles, warrants o acciones preferentes convertibles) se ejercen y se transforman en acciones ordinarias."
+
+  - field_name: "Supplementary Data:"
+    es_name: "Información adicional:"
+    original_description:
+    es_descripcion:
+    enriched_description: "Separación de la información de los estados financieros con información adicional que se proporciona en TIKR."
+
+  - field_name: "Basic EPS"
+    es_name: "Beneficios básicos por acción."
+    original_description:
+    es_descripcion:
+    enriched_description: "Porción de beneficio neto (ajustado por dividendos preferentes) correspondiente a cada acción ordinaria en circulación. Se calcula dividiendo el resultado atribuido a la entidad dominante entre el número medio ponderado de acciones ordinarias en circulación durante el ejercicio, excluyendo las acciones propias mantenidas en autocartera."
+
+  - field_name: "Weighted Average Basic Shares Outstanding"
+    es_name: "Promedio ponderado de acciones ordinarias en circulación"
+    original_description:
+    es_descripcion:
+    enriched_description: "Representa el número medio de acciones que estuvieron disponibles para los accionistas durante un período específico, ajustado para reflejar el tiempo que cada lote de acciones estuvo en circulación."
+
+  - field_name: "Normalized Diluted EPS"
+    es_name: "Beneficio por acción diluido normalizado"
+    original_description:
+    es_descripcion:
+    enriched_description: "El beneficio por acción diluido normalizado es una métrica financiera que ajusta el beneficio por acción (BPA) diluido para eliminar elementos únicos o no recurrentes. Mientras que el BPA diluido estándar ya considera el posible aumento en el número de acciones en circulación debido a la ejecución de opciones sobre acciones, warrants y deuda convertible, el componente normalizado realiza ajustes adicionales en el numerador (el beneficio neto). Este indicador se desglosa en dos componentes clave: Ajuste por dilución: Se incrementa el denominador (número de acciones) para reflejar la conversión de instrumentos financieros potenciales, ofreciendo una visión más conservadora y realista de la rentabilidad por acción. Ajuste por normalización: Se modifican las ganancias del numerador para excluir eventos extraordinarios, irregularidades o factores no operativos que distorsionan el desempeño financiero habitual, permitiendo comparaciones más significativas entre empresas o períodos."
+
+  - field_name: "Dividends Per Share"
+    es_name: "Dividendos por acción"
+    original_description:
+    es_descripcion:
+    enriched_description: "Total de dividendos pagados entre el número de acciones en circulación."
+
+  - field_name: "Total Dividends Per Share"
+    es_name: "Dividendos totales por acción"
+    original_description:
+    es_descripcion:
+    enriched_description: "Parece que es lo mismo que los dividendos por acción."
+
+  - field_name: "Payout Ratio %"
+    es_name: "Dividendo pagado sobre el beneficio neto en porcentaje."
+    original_description:
+    es_descripcion:
+    enriched_description:
+
+  - field_name: "EBITDA"
+    es_name: "EBITDA"
+    original_description: "EBIT + D&A"
+    es_descripcion: 
+    enriched_description: "Beneficio antes de intereses, impuesos, depreciación y amortización."
+
+  - field_name: "Normalized EBITDA"
+    es_name: "EBITDA Normalizado"
+    original_description:
+    es_descripcion:
+    enriched_description: "Parece que es lo mismo que el EBITDA."
+
+  - field_name: "General and Administrative Expense"
+    es_name: "Gastos generales y administrativos"
+    original_description:
+    es_descripcion:
+    enriched_description: "Gastos generales y administrativos"
+
+  - field_name: "Selling and Marketing Expense"
+    es_name: "Gastos de venta y márketing"
+    original_description: "Advertising Expense + Marketing Expense + Stock-Based Compesation for Marketing"
+    es_descripcion: "Gastos de publicidad + Gastos de marketing + Remuneración basada en acciones para marketing"
+    enriched_description: "Gastos de publicidad + Gastos de marketing + Remuneración basada en acciones para marketing"
+
+  - field_name: "Salaries & Wages"
+    es_name: "Salarios y sueldos"
+    original_description: 
+    es_descripcion:
+    enriched_description: "Salarios y sueldos"
+
+  - field_name: "Depreciation"
+    es_name: "Depreciación."
+    original_description:
+    es_descripcion:
+    enriched_description: "Depreciación."
+
+  - field_name: "Depreciation And Amortization"
+    es_name: "Depreciación y amortización"
+    original_description:
+    es_descripcion:
+    enriched_description: "Depreciación y amortización."
+
+  - field_name: "Normalized EBITDA As Reported"
+    es_name: "EBITDA Normalizado como reportado"
+    original_description:
+    es_descripcion:
+    enriched_description: "EBITDA Normalizado como reportado"
+        
+  - field_name: "Normalized Operating Profit As Reported"
+    es_name: "EBITDA Normalizado como reportado"
+    original_description:
+    es_descripcion:
+    enriched_description: "EBITDA Normalizado como reportado"
+        
+  - field_name: "Normalized Income As Reported"
+    es_name: "Ingresos normalizados como reportados"
+    original_description:
+    es_descripcion:
+    enriched_description: "Ingresos normalizados como reportados"
+        
+  - field_name: "Additional Metrics:"
+    es_name: "Métricas adicionales:"
+    original_description:
+    es_descripcion:
+    enriched_description: "Separador para indicar que se van a proporcionar métricas adicionales, fuera de la cuenta de resultados."
+        
+  - field_name: "Total Interest Income"
+    es_name: "Ingresos totales por interés"
+    original_description:
+    es_descripcion:
+    enriched_description: "Ingresos totales por interés"
+        
+  - field_name: "Net Interest Income"
+    es_name: "Ingresos netos por interés"
+    original_description:
+    es_descripcion:
+    enriched_description: "Ingresos netos por interés"

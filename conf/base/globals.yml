@@ -1,0 +1,19 @@
+# Rutas base a las capas de datos (relativas al raiz del proyecto).
+# Se definen aqui (base, versionado) como valores por defecto. Cada maquina
+# puede sobreescribirlas en conf/local/globals.yml si lo necesita.
+path:
+  raw: "data/01_raw"
+  intermediate: "data/02_intermediate"
+  processed: "data/03_processed"
+  models: "data/04_models"
+  model_outputs: "data/05_model_outputs"
+  reporting: "data/06_reporting"
+
+# Nombres de subcarpetas por etapa del pipeline (convención del proyecto)
+step:
+  financials_html: "01.1 - HtmlSectorFiles"              # HTML descargado manualmente
+  financials_statements: "01.2 - FinancialStatementHistorical"  # Estados financieros históricos (Excel)
+  ticker_mapping: "01.3.2 AllTickersInfo"                # Mapeo ticker TIKR → ticker yfinance
+  financials_csv: "02_1. StockUniverse"                  # Datos extraídos del HTML
+  financials_ss: "02_2. StratifiedSampleSelection"       # Muestra estratificada del universo
+  financials_eur: "02_3_2. FinancialStatementsEUR"       # Estados financieros convertidos a EUR (Parquet, por empresa)

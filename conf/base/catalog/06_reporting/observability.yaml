@@ -1,0 +1,24 @@
+# =============================================================================
+# Output: Informe de observabilidad de ejecuciones (Markdown)
+# =============================================================================
+#
+# Contenido:
+#   - Resumen agregado: nº de ejecuciones, correctas/con error, duracion media.
+#   - Agregado por pipeline.
+#   - Historial de ejecuciones (mas recientes primero): inicio, pipeline, env,
+#     estado, duracion, nº de nodos, datasets generados, commit de git.
+#
+# Fuente de datos: historico JSONL de auditoria que escriben los hooks
+#   (data/06_reporting/observability/runs.jsonl), via el modulo
+#   portfolio_recsys.observability.audit.
+#
+# Producido por: pipeline observability
+# Consumido por: operador humano (auditoria / trazabilidad)
+# =============================================================================
+
+observability_report:
+  type: text.TextDataset
+  filepath: "${globals:path.reporting}/observability/observability_report.md"
+  fs_args:
+    open_args_save:
+      encoding: "utf-8"

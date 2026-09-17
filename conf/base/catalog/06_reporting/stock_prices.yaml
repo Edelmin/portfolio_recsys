@@ -1,0 +1,14 @@
+# =============================================================================
+# Output: Informe de validacion de precios de acciones (JSON)
+# =============================================================================
+#
+# Producido por: pipeline report_stock_prices
+# Consumido por: operador humano
+# =============================================================================
+
+stock_prices_report:
+  type: text.TextDataset
+  filepath: "${globals:path.reporting}/stock_prices/validation_report.json"
+  fs_args:
+    open_args_save:
+      encoding: "utf-8"

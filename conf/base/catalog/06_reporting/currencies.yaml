@@ -1,0 +1,14 @@
+# =============================================================================
+# Output: Informe de distribución de divisas (JSON)
+# =============================================================================
+#
+# Producido por: pipeline report_currencies
+# Consumido por: operador humano
+# =============================================================================
+
+currency_report:
+  type: text.TextDataset
+  filepath: "${globals:path.reporting}/currencies/currency_report.json"
+  fs_args:
+    open_args_save:
+      encoding: "utf-8"

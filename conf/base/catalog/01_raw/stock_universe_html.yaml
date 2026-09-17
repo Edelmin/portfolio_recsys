@@ -1,0 +1,43 @@
+# =============================================================================
+# Factory: Universo de acciones descargado manualmente de TIKR (HTML)
+# =============================================================================
+#
+# Descripcion:
+#   Ficheros HTML con tablas que listan el conjunto de empresas cotizadas,
+#   agrupadas por capitalizacion de mercado (large-cap / small-cap) y por
+#   sector GICS. Cada fichero contiene: simbolo, nombre de empresa,
+#   industria, valor de mercado, sector y ubicacion.
+#
+# Pattern: HTML_{cap}_{sector}
+#
+# Opciones validas para {cap}:
+#   - LargeCaps
+#   - SmallCaps
+#
+# Opciones validas para {sector} (nombre de carpeta en espanol, sin tildes):
+#   - BienesRaices
+#   - ConsumoDiscrecional
+#   - Energia
+#   - Financiero
+#   - Industria
+#   - MateriasPrimas
+#   - ProductosDePrimeraNecesidad
+#   - Salud
+#   - Servicios
+#   - ServiciosDeComunicacion
+#   - TecnologiasDeLaInformacion
+#
+# Ejemplo resuelto:
+#   HTML_LargeCaps_Financiero
+#     → data/01_raw/01.1 - HtmlSectorFiles/LargeCaps_Financiero.txt
+#
+# Producido por: descarga manual (TIKR)
+# Consumido por: pipeline parse_financials_from_html
+# =============================================================================
+
+"HTML_{cap}_{sector}":
+  type: text.TextDataset
+  filepath: "${globals:path.raw}/${globals:step.financials_html}/{cap}_{sector}.txt"
+  fs_args:
+    open_args_load:
+      encoding: "utf-8"

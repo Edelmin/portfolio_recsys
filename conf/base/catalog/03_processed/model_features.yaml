@@ -1,0 +1,145 @@
+# =============================================================================
+# Outputs de los pipelines compute_model_features y build_temporal_windows
+# =============================================================================
+#
+# Datasets preprocesados y ventanas temporales, listos para entrenamiento.
+#
+# LAYOUT DE 3 EJES: window / segmentation / horizon
+#   - window       : tamaño de ventana temporal (ej: w60, w20). Se corresponde
+#                    con compute_model_features.window_experiments.{window}.
+#   - segmentation : "unified" (todos los sectores) o "by_sector/{Canonical}".
+#   - horizon      : horizonte de rebalanceo (1d, 1w, 2w, 1m, 2m, 3m, 6m, 1y).
+#
+# CONVENCION DE IDENTIFICADORES (dataset factories con placeholders):
+#   {base}__unified__{window}__{horizon}
+#       -> data/03_processed/model_features/{window}/unified/{horizon}/{base}...
+#   {base}__sector_{sector}__{window}__{horizon}
+#       -> data/03_processed/model_features/{window}/by_sector/{sector}/{horizon}/{base}...
+#
+# Kedro resuelve el patron mas especifico: el literal "unified" y el prefijo
+# "sector_" desambiguan entre ambas familias de patrones.
+#
+# Los identificadores se construyen en codigo con portfolio_recsys.paths.dataset_name().
+#
+# PERSISTENCIA:
+#   - Datasets finales de entrenamiento -> Parquet / JSON (persistidos).
+#   - window_store (arrays NumPy) -> MemoryDataset (intermedio, no se persiste).
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# compute_model_features — SEGMENTACION UNIFIED
+# -----------------------------------------------------------------------------
+
+"market_prepared__unified__{window}__{horizon}":
+  type: polars.EagerPolarsDataset
+  filepath: "${globals:path.processed}/model_features/{window}/unified/{horizon}/market_prepared.parquet"
+  file_format: parquet
+
+"enriched_prepared__unified__{window}__{horizon}":
+  type: polars.EagerPolarsDataset
+  filepath: "${globals:path.processed}/model_features/{window}/unified/{horizon}/enriched_prepared.parquet"
+  file_format: parquet
+
+"market_preprocessor__unified__{window}__{horizon}":
+  type: json.JSONDataset
+  filepath: "${globals:path.processed}/model_features/{window}/unified/{horizon}/market_preprocessor.json"
+
+"enriched_preprocessor__unified__{window}__{horizon}":
+  type: json.JSONDataset
+  filepath: "${globals:path.processed}/model_features/{window}/unified/{horizon}/enriched_preprocessor.json"
+
+"feature_configuration__unified__{window}__{horizon}":
+  type: json.JSONDataset
+  filepath: "${globals:path.processed}/model_features/{window}/unified/{horizon}/feature_configuration.json"
+
+"split_configuration__unified__{window}__{horizon}":
+  type: json.JSONDataset
+  filepath: "${globals:path.processed}/model_features/{window}/unified/{horizon}/split_configuration.json"
+
+# build_temporal_windows — UNIFIED
+"market_window_index__unified__{window}__{horizon}":
+  type: polars.EagerPolarsDataset
+  filepath: "${globals:path.processed}/model_features/{window}/unified/{horizon}/market_window_index.parquet"
+  file_format: parquet
+
+"enriched_window_index__unified__{window}__{horizon}":
+  type: polars.EagerPolarsDataset
+  filepath: "${globals:path.processed}/model_features/{window}/unified/{horizon}/enriched_window_index.parquet"
+  file_format: parquet
+
+# -----------------------------------------------------------------------------
+# compute_model_features — SEGMENTACION BY_SECTOR
+# -----------------------------------------------------------------------------
+
+"market_prepared__sector_{sector}__{window}__{horizon}":
+  type: polars.EagerPolarsDataset
+  filepath: "${globals:path.processed}/model_features/{window}/by_sector/{sector}/{horizon}/market_prepared.parquet"
+  file_format: parquet
+
+"enriched_prepared__sector_{sector}__{window}__{horizon}":
+  type: polars.EagerPolarsDataset
+  filepath: "${globals:path.processed}/model_features/{window}/by_sector/{sector}/{horizon}/enriched_prepared.parquet"
+  file_format: parquet
+
+"market_preprocessor__sector_{sector}__{window}__{horizon}":
+  type: json.JSONDataset
+  filepath: "${globals:path.processed}/model_features/{window}/by_sector/{sector}/{horizon}/market_preprocessor.json"
+
+"enriched_preprocessor__sector_{sector}__{window}__{horizon}":
+  type: json.JSONDataset
+  filepath: "${globals:path.processed}/model_features/{window}/by_sector/{sector}/{horizon}/enriched_preprocessor.json"
+
+"feature_configuration__sector_{sector}__{window}__{horizon}":
+  type: json.JSONDataset
+  filepath: "${globals:path.processed}/model_features/{window}/by_sector/{sector}/{horizon}/feature_configuration.json"
+
+"split_configuration__sector_{sector}__{window}__{horizon}":
+  type: json.JSONDataset
+  filepath: "${globals:path.processed}/model_features/{window}/by_sector/{sector}/{horizon}/split_configuration.json"
+
+# build_temporal_windows — BY_SECTOR
+"market_window_index__sector_{sector}__{window}__{horizon}":
+  type: polars.EagerPolarsDataset
+  filepath: "${globals:path.processed}/model_features/{window}/by_sector/{sector}/{horizon}/market_window_index.parquet"
+  file_format: parquet
+
+"enriched_window_index__sector_{sector}__{window}__{horizon}":
+  type: polars.EagerPolarsDataset
+  filepath: "${globals:path.processed}/model_features/{window}/by_sector/{sector}/{horizon}/enriched_window_index.parquet"
+  file_format: parquet
+
+# -----------------------------------------------------------------------------
+# window: tensor denso de entrada DIRECTA al modelo, persistido en .npz.
+# Contiene, por split, X [N, seq, feat] (float32), y [N], sample_ids [N], mas
+# el orden de feature_columns y metadata. Es el dato que consume PyTorch,
+# congelado y reproducible. Un patron catch-all cubre unified y sector_*.
+# -----------------------------------------------------------------------------
+
+"market_window__unified__{window}__{horizon}":
+  type: portfolio_recsys.datasets.NpzDataset
+  filepath: "${globals:path.processed}/model_features/{window}/unified/{horizon}/market_window.npz"
+
+"enriched_window__unified__{window}__{horizon}":
+  type: portfolio_recsys.datasets.NpzDataset
+  filepath: "${globals:path.processed}/model_features/{window}/unified/{horizon}/enriched_window.npz"
+
+"market_window__sector_{sector}__{window}__{horizon}":
+  type: portfolio_recsys.datasets.NpzDataset
+  filepath: "${globals:path.processed}/model_features/{window}/by_sector/{sector}/{horizon}/market_window.npz"
+
+"enriched_window__sector_{sector}__{window}__{horizon}":
+  type: portfolio_recsys.datasets.NpzDataset
+  filepath: "${globals:path.processed}/model_features/{window}/by_sector/{sector}/{horizon}/enriched_window.npz"
+
+# -----------------------------------------------------------------------------
+# window_store: arrays NumPy en memoria (intermedio, NO se persiste).
+# Un patron catch-all cubre ambas segmentaciones (unified y sector_*).
+# -----------------------------------------------------------------------------
+
+"market_window_store__{token}__{window}__{horizon}":
+  type: MemoryDataset
+  copy_mode: assign
+
+"enriched_window_store__{token}__{window}__{horizon}":
+  type: MemoryDataset
+  copy_mode: assign

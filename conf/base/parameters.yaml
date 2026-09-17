@@ -1,0 +1,410 @@
+# =============================================================================
+# Parametros de pipelines
+# =============================================================================
+
+# --- Periodo historico compartido (usado por fetch_exchange_rates y fetch_stock_prices) ---
+historical_period:
+  start_date: "2009-01-01"
+  end_date: "2026-01-01"
+
+# --- Control de calidad de precios ---
+# Filtros aplicados tras la conversion a EUR (normalize_currencies) y al calcular
+# los retornos (compute_model_features), para mitigar precios corruptos de la
+# fuente (splits mal ajustados, penny stocks, ceros espurios) que auto_adjust y
+# repair de yfinance no siempre corrigen.
+price_quality:
+  # Descarte de empresas con cotizaciones invalidas o cercanas a cero.
+  # Un ticker se descarta por completo si tiene algun precio <= min_price_eur
+  # o si su precio mediano en EUR es inferior a min_median_price_eur (penny stocks,
+  # donde los saltos relativos de la fuente son enormes y poco fiables).
+  drop_nonpositive_prices: true
+  min_price_eur: 0.01          # precios <= 1 centimo de EUR se consideran invalidos
+  min_median_price_eur: 1.0    # mediana < 1 EUR -> penny stock, se descarta el ticker
+  # Clipping (winsorizacion) de log-retornos desorbitados. Se aplica tanto al
+  # target de entrenamiento como a los retornos de las features.
+  clip_returns: true
+  max_abs_log_return: 0.40     # |log-retorno diario| > 0.40 (~+49%/-33%) se recorta
+  # Cuarentena de VENTANAS temporales con retornos anomalos (no descarta la
+  # empresa). Una ventana de train/validation se descarta si alguna de sus
+  # sesiones de entrada o su etiqueta cae fuera de las vallas de Tukey del
+  # log-retorno diario de SU sector: [Q1 - k*IQR, Q3 + k*IQR]. Los umbrales se
+  # estiman SOLO con train+validation (sin leakage). Las ventanas de test NO se
+  # filtran (sus retornos extremos se analizan en el backtesting).
+  filter_anomalous_windows: true
+  anomaly_tukey_k: 5.0         # factor k de las vallas de Tukey por sector
+
+parse_financial_statements:
+  raw_base_path: "data/01_raw/01.2 - FinancialStatementHistorical"
+  output_base_path: "data/02_intermediate/02_3_0. RawFinancialStatements_Parquet"
+  cap: "LargeCaps"  # Cambiar a "SmallCaps" cuando se descarguen esos datos
+
+clean_financial_statements:
+  output_base_path: "data/02_intermediate/02_3_1. CleanFinancialStatements"
+
+validate_price_currencies:
+  output_base_path: "data/02_intermediate/02_3_2. FinancialStatementsEUR"
+
+stratified_random_sampling:
+  # Empresas adicionales sobre el n estadistico por sector.
+  # Editar y relanzar: uv run kedro run --pipeline stratified_random_sampling
+  extra_samples_override:
+    LargeCaps_RealEstate: 0
+    LargeCaps_ConsumerDiscretionary: 0
+    LargeCaps_Energy: 0
+    LargeCaps_Financials: 0
+    LargeCaps_Industrials: 0
+    LargeCaps_Materials: 0
+    LargeCaps_ConsumerStaples: 0
+    LargeCaps_Healthcare: 0
+    LargeCaps_Utilities: 0
+    LargeCaps_CommunicationServices: 0
+    LargeCaps_InformationTechnology: 0
+    SmallCaps_RealEstate: 0
+    SmallCaps_ConsumerDiscretionary: 0
+    SmallCaps_Energy: 0
+    SmallCaps_Financials: 0
+    SmallCaps_Industrials: 0
+    SmallCaps_Materials: 0
+    SmallCaps_ConsumerStaples: 0
+    SmallCaps_Healthcare: 0
+    SmallCaps_Utilities: 0
+    SmallCaps_CommunicationServices: 0
+    SmallCaps_InformationTechnology: 0
+
+build_company_dataset:
+  # Campos a extraer de los estados financieros, separados por hoja.
+  # El join asof asigna el último valor actualizado de cada campo fiscal <= fecha del precio.
+  # Si un campo existe en dos hojas con el mismo nombre, se prefijará con la hoja para evitar colisiones.
+  selected_fields:
+    Income_Statement:
+      - "Total Revenues"
+      - "Cost of Goods Sold"
+      - "Gross Profit"
+      - "Total Operating Expenses"
+      - "Operating Income"
+      - "EBITDA"
+      - "Net Income to Company"
+      - "Weighted Average Diluted Shares Outstanding"
+    Cash_Flow:
+      - "Free Cash Flow"
+    Ratios: []
+
+# =============================================================================
+# Preparacion para modelos (compute_model_features + build_temporal_windows)
+# =============================================================================
+
+compute_model_features:
+  # --- Feature engineering ---
+  feature_engineering:
+    return_horizons:
+      market_return_1d: 1
+      market_return_1w: 5
+      market_return_2w: 10
+      market_return_1m: 21
+      market_return_2m: 42
+      market_return_3m: 63
+      market_return_6m: 126
+      market_return_1y: 252
+    # Lag entre cierre fiscal y disponibilidad como feature. Se fija a 0: los
+    # estados financieros se toman en su fecha de cierre real (sin alinear al
+    # 31/12 ni interpolar), por lo que no hay informacion futura que retrasar.
+    fundamental_lag_days: 0
+    fundamental_log_mapping:
+      "Total Revenues_eur": "fund_revenue_slog"
+      "Cost of Goods Sold_eur": "fund_cogs_slog"
+      "Gross Profit_eur": "fund_gross_profit_slog"
+      "Total Operating Expenses_eur": "fund_opex_slog"
+      "Operating Income_eur": "fund_operating_income_slog"
+      "EBITDA_eur": "fund_ebitda_slog"
+      "Net Income to Company_eur": "fund_net_income_slog"
+      "Weighted Average Diluted Shares Outstanding": "fund_diluted_shares_slog"
+      "Free Cash Flow_eur": "fund_free_cash_flow_slog"
+    fundamental_ratio_mapping:
+      "gross_profit_ratio": "fund_gross_profit_ratio"
+      "ebitda_ratio": "fund_ebitda_ratio"
+      "operating_income_ratio": "fund_operating_income_ratio"
+      "net_income_ratio": "fund_net_income_ratio"
+    execution_lag_sessions: 1
+    # holding_period_sessions se define por horizonte (ver horizons abajo)
+    holding_period_sessions: 1  # default para el horizonte base
+
+  # --- Split temporal (unico para todos los horizontes) ---
+  temporal_split:
+    train_fraction: 0.70
+    validation_fraction: 0.15
+    test_fraction: 0.15
+    # Fechas fijas: ajustadas para soportar hasta horizonte de 1 año (252 sesiones)
+    train_end_date: "2019-12-31"
+    validation_end_date: "2021-12-31"
+    # Tope superior del test: los trades cuya SALIDA es posterior a esta fecha se
+    # marcan como 'excluded' y no entran en ningun split. Se acota a finales de
+    # 2024 porque el ultimo cierre fiscal disponible es 2024-12-31: durante 2025
+    # los fundamentales (dataset enriched) serian un arrastre del cierre de 2024,
+    # dejando de ser informacion fiable. Poner null para no acotar el test.
+    test_end_date: "2024-12-31"
+
+  # --- Ventanas temporales ---
+  windows:
+    sequence_length: 60
+    max_calendar_gap_days: 10
+
+  # --- Ventanas temporales por rama (eje `window`) ---
+  #
+  # Cada entrada define una ventana temporal identificada por una clave legible
+  # (ej: w60, w20). El campo `sequence_length` indica cuantas sesiones de trading
+  # ve la RNN en esa rama; es lo que consumen compute_model_features y
+  # build_temporal_windows al construir las ventanas.
+  #
+  # Se selecciona la rama con `--windows` en pr-prepare-datasets / pr-train-hpo
+  # (o pr-run-all), que aislan sus salidas por el eje window en
+  # {window}/{segmentation}/{horizon}.
+  #   uv run pr-prepare-datasets --windows w20
+  #   uv run pr-train-hpo --windows w20
+  window_experiments:
+    w60:
+      sequence_length: 60
+    w20:
+      sequence_length: 20
+
+  # --- Segmentacion de datos para modelado ---
+  #
+  # Define como se agrupan las empresas para preparar los datasets y (mas
+  # adelante) entrenar los modelos. Dos modos, no excluyentes:
+  #
+  #   - unified   : un unico dataset con todas las empresas de todos los
+  #                 sectores. Si add_sector_features es true, se añaden 11
+  #                 columnas one-hot de sector (binarias) como features del
+  #                 modelo, para que capture a que sector pertenece cada empresa
+  #                 sin necesidad de entrenar un modelo por sector.
+  #   - by_sector : un dataset independiente por sector (nombre canonico). El
+  #                 escalado robusto se ajusta con las estadisticas propias de
+  #                 cada sector. No se añade one-hot (seria constante).
+  #
+  # El orquestador pr-prepare-datasets prioriza terminar 'unified' antes de
+  # empezar 'by_sector' cuando se piden ambos.
+  segmentation:
+    # One-hot de sector en la segmentacion unified.
+    add_sector_features: true
+    # Sectores a generar en modo by_sector (por defecto, todos los que tienen
+    # estados financieros). Se puede acotar por CLI con --sectors.
+    # Vacio o ausente => todos los de SECTORS_WITH_FS.
+    sectors: []
+
+  # --- Horizontes de prediccion ---
+  # Cada horizonte genera un modelo independiente con su propio holding_period.
+  # El pipeline se ejecuta una vez por horizonte, produciendo datasets con sufijo.
+  horizons:
+    1d:
+      holding_period_sessions: 1
+      label: "1 dia"
+      horizon_key: "1d"
+    1w:
+      holding_period_sessions: 5
+      label: "1 semana"
+      horizon_key: "1w"
+    2w:
+      holding_period_sessions: 10
+      label: "2 semanas"
+      horizon_key: "2w"
+    1m:
+      holding_period_sessions: 21
+      label: "1 mes"
+      horizon_key: "1m"
+    2m:
+      holding_period_sessions: 42
+      label: "2 meses"
+      horizon_key: "2m"
+    3m:
+      holding_period_sessions: 63
+      label: "3 meses"
+      horizon_key: "3m"
+    6m:
+      holding_period_sessions: 126
+      label: "6 meses"
+      horizon_key: "6m"
+    1y:
+      holding_period_sessions: 252
+      label: "1 ano"
+      horizon_key: "1y"
+
+# =============================================================================
+# Entrenamiento de modelos recurrentes
+# =============================================================================
+
+model_training:
+  # Hiperparametros de entrenamiento
+  training_config:
+    max_epochs: 50
+    learning_rate: 0.001
+    weight_decay: 0.0001
+    max_gradient_norm: 1.0
+    early_stopping_patience: 8
+    early_stopping_min_delta: 0.00001
+    scheduler_patience: 3
+    scheduler_factor: 0.5
+    minimum_learning_rate: 0.000001
+    smooth_l1_beta: 1.0
+    # Lote grande: con el loader rapido y GPU, aprovecha mejor el hardware y
+    # reduce el numero de transferencias/iteraciones por epoca.
+    batch_size: 1024
+    random_seed: 42
+    num_workers: 0  # ya no relevante con use_fast_loader (sin workers)
+    # Loader rapido: pre-materializa las ventanas en un unico tensor y evita el
+    # cuello de botella de carga de datos (sin DataLoader/__getitem__ por muestra).
+    use_fast_loader: true
+    # store_on_gpu: mantener los tensores del split en la GPU (evita transferencias
+    # por lote). Activar solo si el split cabe en la memoria de la GPU (16 GB).
+    # Con ~1.3M ventanas x 20 x 26 float32 (~2.7 GB) cabe holgado en la RTX 5080
+    # (16 GB), por lo que se activa para maxima velocidad (elimina transferencias
+    # CPU->GPU por lote).
+    store_on_gpu: true
+
+  # --- Optimizacion de hiperparametros (HPO con Optuna / TPE) ---
+  #
+  # Busqueda bayesiana (TPE) + pruning (MedianPruner) que minimiza el RMSE de
+  # VALIDACION. Un estudio por combinacion (window, segmentation, horizon). El
+  # split de TEST no interviene. El tipo de dataset (market/enriched) forma parte
+  # del espacio de busqueda. 1 semilla por trial; la robustez multi-semilla se
+  # aplica despues sobre la configuracion ganadora.
+  hpo:
+    enabled: true
+    n_trials: 10           # trials por estudio (combinacion de ejes)
+    random_seed: 42        # semilla del sampler TPE y de cada trial
+    # El espacio de busqueda esta definido en codigo (models/hpo.py:suggest_configs):
+    #   recurrent_type in {rnn, gru, lstm}
+    #   hidden_size in {32,64,128,256}
+    #   num_layers in [1,10]
+    #   bidirectional in {false,true}
+    #   recurrent_dropout in [0.0,0.4], head_dropout in [0.0,0.5]
+    #   head_hidden_size in {16,32,64}
+    #   head_activation in {relu,silu,leaky_relu,gelu,linear}
+    #   learning_rate in [1e-4,5e-3] (log), weight_decay in [1e-6,1e-3] (log)
+    #   dataset_type in {market, enriched}
+
+  # Robustez por semilla
+  robustness_seeds: [11, 23, 42, 71, 101]
+
+
+# =============================================================================
+# Construccion y evaluacion de carteras Markowitz
+# =============================================================================
+
+markowitz_portfolio:
+  # Tickers excluidos manualmente del universo ponderable del backtest. Su
+  # prediccion se calcula igual (siguen en prediction_table para analisis por
+  # separado), pero NO entran en la seleccion top-K ni en la optimizacion de
+  # Markowitz, ni en los comparadores internos (oracle, equiponderada), de modo
+  # que todas las estrategias comparten el mismo universo. Se aplica solo al
+  # backtest; no requiere regenerar datasets ni reentrenar.
+  # IDEA: penny stock con saltos de retorno desorbitados (>35000% a 1 mes) que,
+  # de no excluirse, inflan la cota de prediccion perfecta y contaminan las
+  # carteras. Se aparta aqui hasta regenerar el pipeline con el filtro de calidad.
+  excluded_tickers: [IDEA]
+
+  # Configuraciones de top-K tickers a seleccionar por rebalanceo
+  top_k_configs: [5, 10, 15, 20]
+
+  # Riesgo maximo: volatilidad ANUAL objetivo de la cartera (desviacion tipica
+  # de log-retornos, 0.20 = 20%). La optimizacion se resuelve EN ESCALA DE
+  # PERIODO de holding: los retornos esperados son el log-retorno del periodo
+  # (sin anualizar), la covarianza se escala al periodo (Sigma_diaria * holding),
+  # y este umbral anual se convierte a periodo internamente
+  # (sigma_periodo = max_risk * sqrt(holding/252)). Asi max_risk mantiene un
+  # significado constante y comparable entre horizontes.
+  max_risk: 0.20
+
+  # Limite de concentracion: peso maximo por activo (0.30 = 30%). Markowitz por
+  # si solo NO diversifica (al maximizar retorno con tope de riesgo puede poner
+  # todo el peso en un unico activo). Este limite fuerza el reparto. Poner a
+  # null para desactivarlo. Debe cumplir max_weight >= 1/max(top_k) para que el
+  # problema sea factible (con top_k=5, min 0.20).
+  max_weight: 0.30
+
+  # --- Estrategias de optimizacion a evaluar ---
+  # Cada estrategia es una formulacion distinta del problema de carteras, todas
+  # sobre la misma seleccion top-K y en escala de periodo de holding:
+  #   - max_return   : max muᵀw s.a. wᵀΣw <= max_risk²  (enfoque original; topa
+  #                    el riesgo pero no diversifica por si solo).
+  #   - min_variance : min wᵀΣw  (minima varianza; diversifica de forma natural,
+  #                    no usa mu ni max_risk en la ponderacion).
+  #   - mean_variance: max muᵀw - lambda·wᵀΣw  (Markowitz canonico con aversion
+  #                    al riesgo; barrido de lambda abajo).
+  #   - target_return: min wᵀΣw s.a. muᵀw >= target_annual_return  (dual del
+  #                    enfoque original; fallback a min_variance si infactible).
+  # Cada estrategia se evalua en variante long-only y long-short (si
+  # allow_short_selling es true).
+  strategies: [max_return, min_variance, mean_variance, target_return]
+
+  # Coeficientes de aversion al riesgo (lambda) para mean_variance. mu y Sigma
+  # estan en la misma escala temporal (periodo de holding), por lo que un mismo
+  # lambda es comparable entre horizontes. El barrido 1..10 cubre desde baja
+  # aversion (cartera cercana a max_return) hasta alta aversion (cercana a
+  # minima varianza).
+  risk_aversion_lambdas: [1, 2, 3, 5, 10]
+
+  # Retorno ANUAL objetivo para la estrategia target_return (se convierte a
+  # escala de periodo internamente). Si es infactible en un rebalanceo, se
+  # recurre a minima varianza.
+  target_annual_return: 0.15
+
+  # --- Paralelizacion del backtest ---
+  # Nº de procesos para paralelizar las configuraciones (top-K x estrategia x
+  # variante) dentro de un horizonte. null => usar (nucleos_logicos - reserva).
+  # El backtest es CPU-bound (cvxpy) y no usa GPU. Cada configuracion es
+  # independiente, por lo que escala bien con procesos.
+  backtest_num_workers: null
+  # Nucleos reservados para el SO / tareas basicas del PC.
+  backtest_reserved_cores: 4
+
+  # Ventana de retornos historicos para estimar la matriz de covarianza (en sesiones)
+  covariance_lookback_sessions: 252
+
+  # Variantes de optimizacion a evaluar
+  allow_short_selling: true  # Si true, genera informe con long-only Y long-short
+
+  # Restriccion para long-short: suma de valores absolutos de pesos (leverage)
+  max_leverage: 1.5
+
+  # Minimo de dias con datos para considerar un ticker en la covarianza
+  min_price_history_sessions: 60
+
+  # --- Benchmark de mercado y activo seguro (comparadores del backtest) ---
+  # Estos activos NO pasan por el modelo recurrente. Se usan solo como
+  # comparadores en el backtest, restringidos al periodo de validacion.
+  benchmark:
+    # Ticker del indice de mercado (S&P 500) descargado via yfinance.
+    market_ticker: "^GSPC"
+    # Etiqueta legible para los informes.
+    market_label: "S&P 500"
+    # Inflacion media anual asumida para el activo seguro (crecimiento fijo).
+    # Valor por defecto: media historica de inflacion CPI de EE.UU. 1914-2026.
+    # TODO(TFM): citar la fuente de esta media en la memoria al incorporar los
+    #   resultados del S&P 500. Fuente usada: inflacion anual media EE.UU. ~3.29%
+    #   (CPI, U.S. BLS; via Trading Economics, serie 1914-2026). Revisar/actualizar
+    #   la cifra y su referencia bibliografica antes de la entrega final.
+    risk_free_annual_inflation: 0.0329
+    # Etiqueta legible del activo seguro.
+    risk_free_label: "Activo seguro (inflacion fija)"
+
+
+# =============================================================================
+# Parametros de ejecucion del pipeline report_portfolio
+# =============================================================================
+# Estos parametros se pasan por CLI o se overriden para seleccionar el horizonte:
+#   uv run kedro run --pipeline report_portfolio \
+#     --params "report_portfolio.horizon_key=3m,report_portfolio.horizon_config.holding_period_sessions=63,report_portfolio.horizon_config.label=3 meses"
+
+report_portfolio:
+  # Split sobre el que se evalua el backtest de carteras. Por defecto "test":
+  # periodo out-of-sample (posterior a validation_end_date) en el que el modelo
+  # esta congelado y que NO intervino ni en el ajuste de pesos (train) ni en la
+  # seleccion de arquitectura/hiperparametros (validation). Es la evaluacion
+  # imparcial del rendimiento de las carteras. Cambiar a "validation" para el
+  # backtest exploratorio sobre el periodo de desarrollo.
+  evaluation_split: "test"
+
+  # Horizonte activo para la ejecucion actual (override por CLI o notebook)
+  horizon_key: "1d"
+  horizon_config:
+    holding_period_sessions: 1
+    label: "1 dia"
